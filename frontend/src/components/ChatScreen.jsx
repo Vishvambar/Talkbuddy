@@ -2,7 +2,7 @@ import MessageBubble from './MessageBubble'
 import React, { useState } from 'react'
 import MessageInput from './MessageInput';
 
-const ChatScreen = () => {
+const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
     const [messages, setMessages] = useState([{
         sender: 'bot', 
         text: 'Hello! I am TalkBuddy. How can I help you? You can type messages or use voice recording.',
@@ -30,7 +30,7 @@ const ChatScreen = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     message: userText,
-                    userId: 'demo-user' // You can make this dynamic later
+                    userId: userId
                 }),
             });
             const data = await res.json();
@@ -64,6 +64,11 @@ const ChatScreen = () => {
                 };
                 
                 setMessages([...messages, updatedUserMessage, botMessage]);
+                
+                // Notify parent component about new session
+                if (onNewSession) {
+                    onNewSession();
+                }
             }
         } catch (err) {
             setMessages([...newMessages, { 
@@ -100,7 +105,7 @@ const ChatScreen = () => {
         }
         
         formData.append('audio', audioBlob, fileName);
-        formData.append('userId', 'demo-user'); // Add userId for session tracking
+        formData.append('userId', userId); // Add userId for session tracking
         
         try {
             const res = await fetch('http://localhost:5000/api/audio-chat', {
@@ -150,7 +155,14 @@ const ChatScreen = () => {
                         feedback: data.feedback
                     };
                     
-                    return [...withoutProcessing, userMessage, botMessage];
+                    const result = [...withoutProcessing, userMessage, botMessage];
+                    
+                    // Notify parent component about new session
+                    if (onNewSession) {
+                        onNewSession();
+                    }
+                    
+                    return result;
                 }
             });
         } catch (err) {
@@ -181,7 +193,14 @@ const ChatScreen = () => {
 
     return (
         <div className='flex flex-col h-full bg-white'>
-            <div className='flex-1 overflow-y-auto p-4'>
+            {/* Chat Header */}
+            <div className='bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4'>
+                <h2 className='text-lg font-semibold'>💬 English Conversation Practice</h2>
+                <p className='text-sm text-blue-100'>Type or speak to practice your English with AI feedback</p>
+            </div>
+            
+            {/* Messages Area */}
+            <div className='flex-1 overflow-y-auto p-4 bg-gray-50'>
                 {messages.map((msg, index) => (
                     <MessageBubble 
                         key={index} 
@@ -195,7 +214,10 @@ const ChatScreen = () => {
                 ))}
             </div>
 
-            <MessageInput onSend={handleSend} onVoiceMessage={handleVoiceMessage} />
+            {/* Message Input */}
+            <div className='bg-white border-t border-gray-200'>
+                <MessageInput onSend={handleSend} onVoiceMessage={handleVoiceMessage} />
+            </div>
         </div>
     )
 }

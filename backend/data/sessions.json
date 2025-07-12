@@ -37,5 +37,458 @@
     "timestamp": "2025-07-12T11:24:38.381Z",
     "createdAt": "2025-07-12T11:24:38.382Z",
     "updatedAt": "2025-07-12T11:24:38.382Z"
+  },
+  {
+    "_id": "1752319623645",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi",
+    "score": 2,
+    "reply": "Hey there! It's awesome that you're taking the first step in practicing your English. Can you tell me what you'd like to say or ask someone with 'Hi'? I'm here to help!",
+    "feedback": "Your text appears to be a simple greeting, but it's missing some fundamental English syntax. The word 'hii' is a great start, but we can make it sound more natural and clear!",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T11:27:03.645Z",
+    "createdAt": "2025-07-12T11:27:03.645Z",
+    "updatedAt": "2025-07-12T11:27:03.645Z"
+  },
+  {
+    "_id": "1752319717750",
+    "user": "demo-user",
+    "transcript": "I am here to learn English ",
+    "corrected": "I am here to learn English",
+    "score": 6,
+    "reply": "Thank you for sharing! Keep practicing your English. What would you like to talk about next?",
+    "feedback": "Consider: Missing punctuation at end.",
+    "corrections": [],
+    "timestamp": "2025-07-12T11:28:37.750Z",
+    "createdAt": "2025-07-12T11:28:37.750Z",
+    "updatedAt": "2025-07-12T11:28:37.750Z"
+  },
+  {
+    "_id": "1752320057582",
+    "user": "mongodb-test-user",
+    "transcript": "I want improve my english speaking skills",
+    "corrected": "I want improve my english speaking skills",
+    "score": 6,
+    "reply": "Thank you for sharing! Keep practicing your English. What would you like to talk about next?",
+    "feedback": "Consider: Missing punctuation at end.",
+    "corrections": [],
+    "timestamp": "2025-07-12T11:34:17.582Z",
+    "createdAt": "2025-07-12T11:34:17.583Z",
+    "updatedAt": "2025-07-12T11:34:17.583Z"
+  },
+  {
+    "_id": "1752320108998",
+    "user": "mongodb-user",
+    "transcript": "I go to school yesterday",
+    "corrected": "I went to school yesterday.",
+    "score": 5,
+    "reply": "The correction I made was changing 'go' to 'went'. We use 'went' when talking about something that happened in the past (like yesterday), but 'go' is for things that are happening now or in the future. Keep practicing, and you'll get the hang of it! Can you think of a sentence where you would use 'go' instead of 'went'?",
+    "feedback": "Great effort! This text shows the potential for good fluency, but there are a few areas that need attention.",
+    "corrections": [
+      {
+        "original": "I go to school yesterday",
+        "corrected": "I went to school yesterday",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-07-12T11:35:08.998Z",
+    "createdAt": "2025-07-12T11:35:08.998Z",
+    "updatedAt": "2025-07-12T11:35:08.998Z"
+  },
+  {
+    "_id": "1752320193606",
+    "user": "mongodb-user",
+    "transcript": "My favorite color is blue",
+    "corrected": "My favourite colour is blue",
+    "score": 7,
+    "reply": "Well done on expressing your favourite color! Using 'favourite' instead of 'favorite' is a subtle difference, but it's an important one to get right. Can you think of any other simple colours you love?",
+    "feedback": "Your sentence is concise and easy to understand, but could benefit from some minor tweaks to achieve perfect fluency. Your vocabulary is simple and clear, but we can explore more complex options to enhance your texting.",
+    "corrections": [
+      {
+        "original": "favorite",
+        "corrected": "favourite",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T11:36:33.606Z",
+    "createdAt": "2025-07-12T11:36:33.606Z",
+    "updatedAt": "2025-07-12T11:36:33.606Z"
+  },
+  {
+    "_id": "1752320408660",
+    "user": "demo-user",
+    "transcript": "I want to discuss about the Ai and ML toady !",
+    "corrected": "I'd like to discuss artificial intelligence (AI) and machine learning (ML) today!",
+    "score": 5,
+    "reply": "Great topic to explore! Now that we've revised your sentence, can you tell me what specifically you'd like to discuss about AI and ML?",
+    "feedback": "Good job on getting your ideas out! However, there are a few areas where we can improve the clarity and accuracy of your writing. Let's take a closer look.",
+    "corrections": [
+      {
+        "original": "I want to discuss about the Ai and ML toady !",
+        "corrected": "I'd like to discuss artificial intelligence (AI) and machine learning (ML) today!",
+        "type": "grammar and vocabulary"
+      },
+      {
+        "original": "toady",
+        "corrected": "today",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T11:40:08.660Z",
+    "createdAt": "2025-07-12T11:40:08.660Z",
+    "updatedAt": "2025-07-12T11:40:08.660Z"
+  },
+  {
+    "_id": "1752320697323",
+    "user": "demo-user",
+    "transcript": "I am a 2nd year computer engineering student and I dont have any knowledge regarding the AI and ML field to start , I want to learn it from the Scratch ",
+    "corrected": "I am a 2nd-year computer engineering student, and I don't have any knowledge regarding the AI and ML field, so I want to learn it from scratch.",
+    "score": 7,
+    "reply": "Great effort! Your enthusiasm for learning AI and ML is impressive. Remember, starting from scratch is a great way to build a strong foundation. As you continue to learn, what specific aspects of AI and ML do you think you'll be most interested in exploring?",
+    "feedback": "Your text shows good vocabulary and a clear idea of what you want to express. However, there are some minor errors in grammar and sentence structure that can be improved.",
+    "corrections": [
+      {
+        "original": "I dont have any knowledge",
+        "corrected": "I don't have any knowledge",
+        "type": "grammar"
+      },
+      {
+        "original": "to start",
+        "corrected": "so",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T11:44:57.323Z",
+    "createdAt": "2025-07-12T11:44:57.323Z",
+    "updatedAt": "2025-07-12T11:44:57.323Z"
+  },
+  {
+    "_id": "1752321893334",
+    "user": "validation-test",
+    "transcript": "Test",
+    "corrected": "Test.",
+    "score": 15,
+    "reply": "Reply",
+    "feedback": "Feedback",
+    "corrections": [],
+    "timestamp": "2025-07-12T12:04:53.334Z",
+    "createdAt": "2025-07-12T12:04:53.335Z",
+    "updatedAt": "2025-07-12T12:04:53.335Z"
+  },
+  {
+    "_id": "1752321917643",
+    "user": "final-test-user",
+    "transcript": "Hello, I am testing the database integration",
+    "corrected": "Hello, I'm testing the database integration",
+    "score": 8,
+    "reply": "Great effort! It's easy to forget about those small nuances, but 'I'm testing' is just a bit more natural-sounding in this context. Keep up the good work! Can you tell me a bit more about what you're trying to test in the database?",
+    "feedback": "Your text is clear and concise, but there are a few minor adjustments that can be made to improve fluency.",
+    "corrections": [
+      {
+        "original": "I am testing",
+        "corrected": "I'm testing",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T12:05:17.643Z",
+    "createdAt": "2025-07-12T12:05:17.644Z",
+    "updatedAt": "2025-07-12T12:05:17.644Z"
+  },
+  {
+    "_id": "1752322401720",
+    "user": "demo-user",
+    "transcript": "Hello, I want to test the history feature",
+    "corrected": "Hello, I'm interested in testing the history feature.",
+    "score": 7,
+    "reply": "Great job! You're off to a good start. Now, let's try making a sentence using the past tense. How would you ask about a feature that was previously available but is no longer supported?",
+    "feedback": "Your sentence structure and vocabulary are good, but there are a few small issues with grammar and tone. In casual conversations, we often use more personal pronouns and phrases to make our sentences sound more natural.",
+    "corrections": [
+      {
+        "original": "I want to test",
+        "corrected": "I'm interested in testing",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T12:13:21.721Z",
+    "createdAt": "2025-07-12T12:13:21.721Z",
+    "updatedAt": "2025-07-12T12:13:21.721Z"
+  },
+  {
+    "_id": "1752322752012",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hello!",
+    "score": 4,
+    "reply": "Great effort to communicate! Remember, a more formal greeting can go a long way in making a good impression. Here's a follow-up question: Can you think of other ways you could greet someone in English?",
+    "feedback": "It seems like you're trying to start a greeting, but we can improve the formality and clarity with a bit of correction.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hello!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T12:19:12.012Z",
+    "createdAt": "2025-07-12T12:19:12.012Z",
+    "updatedAt": "2025-07-12T12:19:12.012Z"
+  },
+  {
+    "_id": "1752323263940",
+    "user": "test-engaging",
+    "transcript": "I really enjoying reading books about adventure",
+    "corrected": "I really enjoy reading books about adventure",
+    "score": 7,
+    "reply": "That sounds like a thrilling genre! What's your favorite part about adventure stories, is it the excitement, the characters, or something else?",
+    "feedback": "Good job! Remember that 'enjoying' is the present participle form, so you can change it to 'enjoy' for a more natural sentence structure. Also, 'books about adventure' is a great topic, what's your favorite adventure story you've ever read?",
+    "corrections": [
+      {
+        "original": "enjoying",
+        "corrected": "enjoy",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-07-12T12:27:43.940Z",
+    "createdAt": "2025-07-12T12:27:43.940Z",
+    "updatedAt": "2025-07-12T12:27:43.940Z"
+  },
+  {
+    "_id": "1752323701122",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 6,
+    "reply": "Hi! How are you doing today?",
+    "feedback": "Nice start! Just remember to use the full greeting.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T12:35:01.122Z",
+    "createdAt": "2025-07-12T12:35:01.122Z",
+    "updatedAt": "2025-07-12T12:35:01.122Z"
+  },
+  {
+    "_id": "1752323727580",
+    "user": "demo-user",
+    "transcript": "Nothing , just came from Shop",
+    "corrected": "I just came back from the shop.",
+    "score": 7,
+    "reply": "Ah, did you buy anything interesting? What's the most unusual thing you've ever purchased from a shop?",
+    "feedback": "Your sentence is understandable, but try to use a more natural phrase. Also, 'nothing' doesn't usually come at the beginning of a sentence.",
+    "corrections": [
+      {
+        "original": "Nothing , just came from Shop",
+        "corrected": "I just came back from the shop.",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T12:35:27.580Z",
+    "createdAt": "2025-07-12T12:35:27.580Z",
+    "updatedAt": "2025-07-12T12:35:27.580Z"
+  },
+  {
+    "_id": "1752323795686",
+    "user": "demo-user",
+    "transcript": "Nah , I own the Shop !",
+    "corrected": "I actually own the shop.",
+    "score": 6,
+    "reply": "That's awesome! What kind of products or services does your shop sell?",
+    "feedback": "Great start! Just a small tweak to make the sentence more clear.",
+    "corrections": [
+      {
+        "original": "Nah , I own the Shop !",
+        "corrected": "I actually own the shop.",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T12:36:35.686Z",
+    "createdAt": "2025-07-12T12:36:35.686Z",
+    "updatedAt": "2025-07-12T12:36:35.686Z"
+  },
+  {
+    "_id": "1752323917024",
+    "user": "demo-user",
+    "transcript": "Coding !",
+    "corrected": "Coding is an exciting subject! What do you enjoy about it?",
+    "score": 5,
+    "reply": "I've always been fascinated by coding too! What's your favorite programming language to use?",
+    "feedback": "Great start! Sentence structure is simple, but we can work on adding more detail to make it more engaging",
+    "corrections": [
+      {
+        "original": "Coding !",
+        "corrected": "Coding is an exciting subject!",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-07-12T12:38:37.024Z",
+    "createdAt": "2025-07-12T12:38:37.024Z",
+    "updatedAt": "2025-07-12T12:38:37.024Z"
+  },
+  {
+    "_id": "1752323960358",
+    "user": "demo-user",
+    "transcript": "I mostly use JS as I do the Web Developement ",
+    "corrected": "I mostly use JavaScript because I do web development.",
+    "score": 7,
+    "reply": "That's cool! How do you like learning about new web development technologies and techniques?",
+    "feedback": "You're getting close! I noticed a small typo and a simpler sentence structure could make your message even clearer.",
+    "corrections": [
+      {
+        "original": "JS as I do the Web Developement",
+        "corrected": "JavaScript because I do web development",
+        "type": "vocabulary and sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T12:39:20.358Z",
+    "createdAt": "2025-07-12T12:39:20.358Z",
+    "updatedAt": "2025-07-12T12:39:20.358Z"
+  },
+  {
+    "_id": "1752324371249",
+    "user": "demo-user",
+    "transcript": "I don't know how ? But I Like to do it !",
+    "corrected": "I'm not sure how to, but I like doing it!",
+    "score": 7,
+    "reply": "That's a great attitude to have! What activities do you enjoy doing in your free time?",
+    "feedback": "You're getting closer! The verb 'to know' usually doesn't require a question mark because it's asking for general knowledge. Nice job using the phrase 'I like to do it'!",
+    "corrections": [
+      {
+        "original": "I don't know how ?",
+        "corrected": "I'm not sure how to",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-07-12T12:46:11.249Z",
+    "createdAt": "2025-07-12T12:46:11.249Z",
+    "updatedAt": "2025-07-12T12:46:11.249Z"
+  },
+  {
+    "_id": "1752324458864",
+    "user": "demo-user",
+    "transcript": "I also said this that I am excited for going to MIT ADT ",
+    "corrected": "I'm excited to go to MIT ADT",
+    "score": 7,
+    "reply": "That's amazing! What are you most looking forward to learning or accomplishing while studying at MIT ADT?",
+    "feedback": "Great effort! Remember to keep your sentences short and clear, and try to use more advanced vocabulary. Also, MIT ADT is not a common abbreviation, consider writing it out as 'Massachusetts Institute of Technology's Advanced Degree Track'.",
+    "corrections": [
+      {
+        "original": "I also said this that I am excited for going to MIT ADT",
+        "corrected": "I'm excited to go to MIT ADT",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T12:47:38.864Z",
+    "createdAt": "2025-07-12T12:47:38.864Z",
+    "updatedAt": "2025-07-12T12:47:38.864Z"
+  },
+  {
+    "_id": "1752324949984",
+    "user": "demo-user",
+    "transcript": "Hello ",
+    "corrected": "Hello!",
+    "score": 6,
+    "reply": "That's a great start! What's on your mind today? Do you have a fun plan or something you're looking forward to?",
+    "feedback": "You've started the conversation, but it's a bit short! Let's make it a bit more friendly.",
+    "corrections": [
+      {
+        "original": "Hello ",
+        "corrected": "Hello!",
+        "type": "punctuation"
+      }
+    ],
+    "timestamp": "2025-07-12T12:55:49.984Z",
+    "createdAt": "2025-07-12T12:55:49.984Z",
+    "updatedAt": "2025-07-12T12:55:49.984Z"
+  },
+  {
+    "_id": "1752324997833",
+    "user": "demo-user",
+    "transcript": "today I want to do the basic practice of english so ask me questions and i'll give you the answers and then check ",
+    "corrected": "Today I'd like to practice English conversation, so feel free to ask me questions and I'll respond, and then we can check my answers",
+    "score": 7,
+    "reply": "I'd love to help you practice English conversation! What do you typically talk about with your friends in your native language?",
+    "feedback": "Great effort! I like your enthusiasm to practice English. For fluency, try breaking your sentence into two smaller sentences and avoiding contractions to improve clarity.",
+    "corrections": [
+      {
+        "original": "basic practice of english",
+        "corrected": "practice English conversation",
+        "type": "vocabulary"
+      },
+      {
+        "original": "ask me questions and i'll give you the answers and then check ",
+        "corrected": "ask me questions and I'll respond, and then we can check my answers",
+        "type": "grammar, sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T12:56:37.833Z",
+    "createdAt": "2025-07-12T12:56:37.833Z",
+    "updatedAt": "2025-07-12T12:56:37.833Z"
+  },
+  {
+    "_id": "1752325847774",
+    "user": "test_user_gamification",
+    "transcript": "Hello, I want to practice English today!",
+    "corrected": "Hello, I'd like to practice my English conversation today!",
+    "score": 8,
+    "reply": "That's great timing! What do you usually like to talk about when practicing your English?",
+    "feedback": "Your English is clear! Just a small suggestion to make it more natural and fluent.",
+    "corrections": [
+      {
+        "original": "I want to practice English today!",
+        "corrected": "I'd like to practice my English conversation today!",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-12T13:10:47.774Z",
+    "createdAt": "2025-07-12T13:10:47.774Z",
+    "updatedAt": "2025-07-12T13:10:47.774Z"
+  },
+  {
+    "_id": "1752325861754",
+    "user": "test_gamer",
+    "transcript": "Hello I want to practice English",
+    "corrected": "Hello, I'd like to practice my English conversation skills",
+    "score": 7,
+    "reply": "That's really great that you want to improve your English! What do you think is the most challenging part of communicating in English for you?",
+    "feedback": "Great start! Your sentence is clear, but try to use more formal phrases like 'I'd like to practice my English conversation skills' instead of a simple 'I want to practice English'. This will help you make a stronger impression and get more natural-sounding responses.",
+    "corrections": [
+      {
+        "original": "I want to practice English",
+        "corrected": "I'd like to practice my English conversation skills",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T13:11:01.754Z",
+    "createdAt": "2025-07-12T13:11:01.754Z",
+    "updatedAt": "2025-07-12T13:11:01.754Z"
+  },
+  {
+    "_id": "1752325871777",
+    "user": "test_gamer",
+    "transcript": "Your explanation was absolutely perfect and I understand everything clearly.",
+    "corrected": "Your explanation was absolutely perfect and now I understand everything clearly.",
+    "score": 8,
+    "reply": "I'm glad everything is clear! What do you think is the most important thing to understand when it comes to this topic?",
+    "feedback": "Great effort! Your sentence is clear and understandable, but I've made a slight adjustment to make it even smoother.",
+    "corrections": [
+      {
+        "original": "I understand everything clearly",
+        "corrected": "now I understand everything clearly",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-12T13:11:11.777Z",
+    "createdAt": "2025-07-12T13:11:11.778Z",
+    "updatedAt": "2025-07-12T13:11:11.778Z"
   }
 ]
