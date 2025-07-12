@@ -4,26 +4,76 @@ import MessageInput from './MessageInput';
 
 const ChatScreen = () => {
     const [messages, setMessages] = useState([{
-        sender: 'bot', text: 'Hello! I am TalkBuddy. How can I help you? You can type messages or use voice recording.'
+        sender: 'bot', 
+        text: 'Hello! I am TalkBuddy. How can I help you? You can type messages or use voice recording.',
+        score: null,
+        corrected: null,
+        corrections: [],
+        feedback: null
     }]);
 
     const handleSend = async (userText) => {
-        const newMessages = [...messages, { sender: 'user', text: userText }];
+        const userMessage = { 
+            sender: 'user', 
+            text: userText,
+            score: null,
+            corrected: null,
+            corrections: [],
+            feedback: null
+        };
+        const newMessages = [...messages, userMessage];
         setMessages(newMessages);
+        
         try {
             const res = await fetch('http://localhost:5000/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userText }),
+                body: JSON.stringify({ 
+                    message: userText,
+                    userId: 'demo-user' // You can make this dynamic later
+                }),
             });
             const data = await res.json();
+            
             if (!res.ok) {
-                setMessages([...newMessages, { sender: 'bot', text: 'Error: ' + (data.error || 'Unknown error') }]);
+                setMessages([...newMessages, { 
+                    sender: 'bot', 
+                    text: 'Error: ' + (data.error || 'Unknown error'),
+                    score: null,
+                    corrected: null,
+                    corrections: [],
+                    feedback: null
+                }]);
             } else {
-                setMessages([...newMessages, { sender: 'bot', text: data.reply }]);
+                // Update user message with analysis data
+                const updatedUserMessage = {
+                    ...userMessage,
+                    score: data.score,
+                    corrected: data.corrected,
+                    corrections: data.corrections || [],
+                    feedback: data.feedback
+                };
+                
+                const botMessage = {
+                    sender: 'bot',
+                    text: data.reply,
+                    score: null,
+                    corrected: null,
+                    corrections: [],
+                    feedback: data.feedback
+                };
+                
+                setMessages([...messages, updatedUserMessage, botMessage]);
             }
         } catch (err) {
-            setMessages([...newMessages, { sender: 'bot', text: 'Network Error: ' + err.message + '. Please check if the backend server is running on port 5000.' }]);
+            setMessages([...newMessages, { 
+                sender: 'bot', 
+                text: 'Network Error: ' + err.message + '. Please check if the backend server is running on port 5000.',
+                score: null,
+                corrected: null,
+                corrections: [],
+                feedback: null
+            }]);
         }
     };
 
@@ -50,6 +100,7 @@ const ChatScreen = () => {
         }
         
         formData.append('audio', audioBlob, fileName);
+        formData.append('userId', 'demo-user'); // Add userId for session tracking
         
         try {
             const res = await fetch('http://localhost:5000/api/audio-chat', {
@@ -63,14 +114,43 @@ const ChatScreen = () => {
                 const withoutProcessing = prev.slice(0, -1);
                 if (!res.ok) {
                     return [...withoutProcessing, 
-                        { sender: 'user', text: 'Voice message (error in transcription)' },
-                        { sender: 'bot', text: 'Error: ' + (data.error || 'Unknown error') + '. Details: ' + (data.details || 'No additional details') }
+                        { 
+                            sender: 'user', 
+                            text: 'Voice message (error in transcription)',
+                            score: null,
+                            corrected: null,
+                            corrections: [],
+                            feedback: null
+                        },
+                        { 
+                            sender: 'bot', 
+                            text: 'Error: ' + (data.error || 'Unknown error') + '. Details: ' + (data.details || 'No additional details'),
+                            score: null,
+                            corrected: null,
+                            corrections: [],
+                            feedback: null
+                        }
                     ];
                 } else {
-                    return [...withoutProcessing,
-                        { sender: 'user', text: data.transcription },
-                        { sender: 'bot', text: data.reply }
-                    ];
+                    const userMessage = {
+                        sender: 'user',
+                        text: data.transcription,
+                        score: data.score,
+                        corrected: data.corrected,
+                        corrections: data.corrections || [],
+                        feedback: data.feedback
+                    };
+                    
+                    const botMessage = {
+                        sender: 'bot',
+                        text: data.reply,
+                        score: null,
+                        corrected: null,
+                        corrections: [],
+                        feedback: data.feedback
+                    };
+                    
+                    return [...withoutProcessing, userMessage, botMessage];
                 }
             });
         } catch (err) {
@@ -78,8 +158,22 @@ const ChatScreen = () => {
             setMessages(prev => {
                 const withoutProcessing = prev.slice(0, -1);
                 return [...withoutProcessing,
-                    { sender: 'user', text: 'Voice message (network error)' },
-                    { sender: 'bot', text: 'Network Error: ' + err.message + '. Please check if the backend server is running on port 5000.' }
+                    { 
+                        sender: 'user', 
+                        text: 'Voice message (network error)',
+                        score: null,
+                        corrected: null,
+                        corrections: [],
+                        feedback: null
+                    },
+                    { 
+                        sender: 'bot', 
+                        text: 'Network Error: ' + err.message + '. Please check if the backend server is running on port 5000.',
+                        score: null,
+                        corrected: null,
+                        corrections: [],
+                        feedback: null
+                    }
                 ];
             });
         }
@@ -89,7 +183,15 @@ const ChatScreen = () => {
         <div className='flex flex-col h-full bg-white'>
             <div className='flex-1 overflow-y-auto p-4'>
                 {messages.map((msg, index) => (
-                    <MessageBubble key={index} sender={msg.sender} text={msg.text} />
+                    <MessageBubble 
+                        key={index} 
+                        sender={msg.sender} 
+                        text={msg.text}
+                        score={msg.score}
+                        corrected={msg.corrected}
+                        corrections={msg.corrections}
+                        feedback={msg.feedback}
+                    />
                 ))}
             </div>
 

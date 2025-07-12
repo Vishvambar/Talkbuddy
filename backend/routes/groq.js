@@ -1,6 +1,8 @@
 import express from 'express';
 import { chatWithGroq } from '../utils/groqClient.js';
 import { transcribeAudio } from '../utils/groqWhisper.js';
+import { analyzeTextFluency, getEnhancedSystemPrompt } from '../utils/fluencyAnalyzer.js';
+import { saveSession, getUserSessions, getWeeklySummary } from '../services/sessionService.js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
@@ -27,32 +29,41 @@ const upload = multer({
   }
 });
 
+// Enhanced chat endpoint with fluency analysis
 router.post('/chat', async (req, res) => {
   try {
     const userMessage = req.body.message;
-    const messages = [
-      {
-        role: 'system',
-        content: `You are TalkBuddy, a friendly and intelligent English-speaking coach. 
-Your job is to help the user improve spoken English fluency through daily conversation.
-
-Here’s how you behave:
-- Always respond in simple, correct English.
-- Ask friendly, relevant follow-up questions to keep the conversation going.
-- Correct the user's grammar, sentence structure, or pronunciation (if needed), but do it politely and briefly.
-- Encourage the user and make them feel confident.
-- Never use complex or technical vocabulary unless asked.
-- Your tone is like a patient teacher who genuinely wants the student to speak more.
-- Do not generate long lectures. Keep replies conversational — 2 to 4 short sentences max.
-- If the user says something unclear or incomplete, ask them to clarify politely.`
-      },
-      { role: 'user', content: userMessage }
-    ];
-    const reply = await chatWithGroq(messages);
-    res.json({ reply });
+    const userId = req.body.userId || 'anonymous';
+    
+    // Analyze user's text for fluency
+    const analysis = await analyzeTextFluency(userMessage);
+    
+    // Save session data
+    try {
+      await saveSession({
+        user: userId,
+        transcript: userMessage,
+        corrected: analysis.corrected,
+        score: analysis.score,
+        reply: analysis.reply,
+        feedback: analysis.feedback || '',
+        corrections: analysis.corrections || []
+      });
+    } catch (saveError) {
+      console.error('Failed to save session:', saveError);
+      // Don't fail the request if saving fails
+    }
+    
+    res.json({
+      reply: analysis.reply,
+      score: analysis.score,
+      corrected: analysis.corrected,
+      corrections: analysis.corrections,
+      feedback: analysis.feedback
+    });
   } catch (err) {
-    console.error('Groq error:', err.response?.data || err.message);
-    res.status(500).json({ error: 'Groq API failed' });
+    console.error('Chat error:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Chat processing failed' });
   }
 });
 
@@ -113,7 +124,7 @@ router.post('/transcribe', upload.single('audio'), async (req, res) => {
   }
 });
 
-// New endpoint: audio to chat (Whisper -> Llama)
+// Enhanced audio-chat endpoint with fluency analysis
 router.post('/audio-chat', upload.single('audio'), async (req, res) => {
   console.log('Received file:', req.file);
   try {
@@ -127,33 +138,35 @@ router.post('/audio-chat', upload.single('audio'), async (req, res) => {
     }
 
     const filePath = req.file.path;
-    const { model, language, response_format, prompt } = req.body;
+    const { model, language, response_format, prompt, userId } = req.body;
     const options = {};
     if (response_format) options.response_format = response_format;
     if (prompt) options.prompt = prompt;
 
     let transcription;
-    let chatReply;
+    let analysis;
     try {
+      // First transcribe the audio
       transcription = await transcribeAudio(filePath, model || undefined, language || undefined, options);
-      chatReply = await chatWithGroq([
-        {
-          role: 'system',
-          content: `You are TalkBuddy, a friendly and intelligent English-speaking coach. 
-Your job is to help the user improve spoken English fluency through daily conversation.
-
-Here’s how you behave:
-- Always respond in simple, correct English.
-- Ask friendly, relevant follow-up questions to keep the conversation going.
-- Correct the user's grammar, sentence structure, or pronunciation (if needed), but do it politely and briefly.
-- Encourage the user and make them feel confident.
-- Never use complex or technical vocabulary unless asked.
-- Your tone is like a patient teacher who genuinely wants the student to speak more.
-- Do not generate long lectures. Keep replies conversational — 2 to 4 short sentences max.
-- If the user says something unclear or incomplete, ask them to clarify politely.`
-        },
-        { role: 'user', content: transcription }
-      ]);
+      
+      // Then analyze for fluency
+      analysis = await analyzeTextFluency(transcription);
+      
+      // Save session data
+      try {
+        await saveSession({
+          user: userId || 'anonymous',
+          transcript: transcription,
+          corrected: analysis.corrected,
+          score: analysis.score,
+          reply: analysis.reply,
+          feedback: analysis.feedback || '',
+          corrections: analysis.corrections || []
+        });
+      } catch (saveError) {
+        console.error('Failed to save session:', saveError);
+        // Don't fail the request if saving fails
+      }
     } catch (err) {
       console.error('Audio-chat route error:', err);
 
@@ -174,7 +187,15 @@ Here’s how you behave:
         if (err) console.error('Failed to delete uploaded file:', filePath, err);
       });
     }
-    res.json({ transcription, reply: chatReply });
+    
+    res.json({
+      transcription,
+      reply: analysis.reply,
+      score: analysis.score,
+      corrected: analysis.corrected,
+      corrections: analysis.corrections,
+      feedback: analysis.feedback
+    });
   } catch (err) {
     console.error('Audio-chat route error:', err);
     if (err.code === 'LIMIT_FILE_SIZE') {
@@ -184,6 +205,40 @@ Here’s how you behave:
       return res.status(400).json({ error: 'Invalid file format. Supported formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, opus, wav, webm' });
     }
     res.status(500).json({ error: 'Internal server error', details: err.message || err });
+  }
+});
+
+// Get user sessions
+router.get('/sessions/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const limit = parseInt(req.query.limit) || 50;
+    
+    const sessions = await getUserSessions(userId, limit);
+    res.json({
+      success: true,
+      sessions,
+      total: sessions.length
+    });
+  } catch (err) {
+    console.error('Sessions route error:', err);
+    res.status(500).json({ error: 'Failed to fetch sessions' });
+  }
+});
+
+// Get weekly summary
+router.get('/week-summary/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    const summary = await getWeeklySummary(userId);
+    res.json({
+      success: true,
+      ...summary
+    });
+  } catch (err) {
+    console.error('Weekly summary route error:', err);
+    res.status(500).json({ error: 'Failed to generate weekly summary' });
   }
 });
 
