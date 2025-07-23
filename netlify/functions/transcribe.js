@@ -1,4 +1,4 @@
-import { transcribeAudio } from '../../backend/utils/groqWhisper.js';
+import { transcribeAudio } from '../utils/groqWhisper.js';
 import multiparty from 'multiparty';
 import fs from 'fs';
 import path from 'path';

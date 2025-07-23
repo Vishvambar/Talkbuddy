@@ -1,4 +1,4 @@
-import { getLeaderboard } from '../../backend/services/gamificationService.js';
+import { getLeaderboard } from '../services/gamificationService.js';
 
 export const handler = async (event, context) => {
   // Enable CORS

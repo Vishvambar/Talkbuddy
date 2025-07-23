@@ -1,0 +1,13 @@
+{
+  "name": "talkbuddy-functions",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "dotenv": "^17.0.1",
+    "groq-sdk": "^0.26.0",
+    "mongoose": "^8.16.3",
+    "multiparty": "^4.2.3",
+    "node-fetch": "^3.3.2"
+  }
+}

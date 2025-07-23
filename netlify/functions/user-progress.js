@@ -1,4 +1,4 @@
-import { getUserProgress } from '../../backend/services/gamificationService.js';
+import { getUserProgress } from '../services/gamificationService.js';
 
 export const handler = async (event, context) => {
   // Enable CORS

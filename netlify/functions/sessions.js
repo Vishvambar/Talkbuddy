@@ -1,4 +1,4 @@
-import { getUserSessions, getWeeklySummary } from '../../backend/services/sessionService.js';
+import { getUserSessions, getWeeklySummary } from '../services/sessionService.js';
 
 export const handler = async (event, context) => {
   // Enable CORS

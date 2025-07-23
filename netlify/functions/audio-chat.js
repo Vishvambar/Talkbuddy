@@ -1,7 +1,7 @@
-import { transcribeAudio } from '../../backend/utils/groqWhisper.js';
-import { analyzeTextFluency } from '../../backend/utils/fluencyAnalyzer.js';
-import { saveSession } from '../../backend/services/sessionService.js';
-import { updateUserProgress } from '../../backend/services/gamificationService.js';
+import { transcribeAudio } from '../utils/groqWhisper.js';
+import { analyzeTextFluency } from '../utils/fluencyAnalyzer.js';
+import { saveSession } from '../services/sessionService.js';
+import { updateUserProgress } from '../services/gamificationService.js';
 import multiparty from 'multiparty';
 import fs from 'fs';
 

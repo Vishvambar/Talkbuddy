@@ -1,43 +1,33 @@
-import { analyzeTextFluency } from '../../backend/utils/fluencyAnalyzer.js';
-import { saveSession } from '../../backend/services/sessionService.js';
-import { updateUserProgress } from '../../backend/services/gamificationService.js';
+import { analyzeTextFluency } from '../utils/fluencyAnalyzer.js';
+import { saveSession } from '../services/sessionService.js';
+import { updateUserProgress } from '../services/gamificationService.js';
+import { validateEnvironment, createErrorResponse, createSuccessResponse, handleCORS } from '../utils/config.js';
 
 export const handler = async (event, context) => {
-  // Enable CORS
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
-  // Handle preflight requests
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: ''
-    };
-  }
+  // Handle CORS
+  const corsResponse = handleCORS(event);
+  if (corsResponse) return corsResponse;
 
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return createErrorResponse(405, 'Method not allowed');
   }
 
   try {
+    // Validate environment variables
+    validateEnvironment();
+    
+    // Basic validation
+    if (!event.body) {
+      return createErrorResponse(400, 'Request body is required');
+    }
+
     const { message, userId = 'anonymous' } = JSON.parse(event.body);
     
-    if (!message) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: 'Message is required' })
-      };
+    if (!message || typeof message !== 'string') {
+      return createErrorResponse(400, 'Valid message is required');
     }
+
+    console.log('Processing chat request for user:', userId);
 
     // Analyze user's text for fluency
     const analysis = await analyzeTextFluency(message);
@@ -71,29 +61,29 @@ export const handler = async (event, context) => {
       // Don't fail the request if gamification fails
     }
     
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        reply: analysis.reply,
-        score: analysis.score,
-        corrected: analysis.corrected,
-        corrections: analysis.corrections,
-        feedback: analysis.feedback,
-        // Gamification data
-        ...gamificationData
-      })
-    };
+    return createSuccessResponse({
+      reply: analysis.reply,
+      score: analysis.score,
+      corrected: analysis.corrected,
+      corrections: analysis.corrections,
+      feedback: analysis.feedback,
+      // Gamification data
+      ...gamificationData
+    });
 
   } catch (error) {
     console.error('Chat function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ 
-        error: 'Chat processing failed',
-        details: error.message 
-      })
-    };
+    console.error('Error stack:', error.stack);
+    
+    // Handle specific error types
+    if (error.code === 'MISSING_ENV_VARS') {
+      return createErrorResponse(500, error);
+    }
+    
+    if (error instanceof SyntaxError) {
+      return createErrorResponse(400, 'Invalid JSON in request body: ' + error.message);
+    }
+    
+    return createErrorResponse(500, error.message || 'Chat processing failed');
   }
 };
