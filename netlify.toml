@@ -1,0 +1,58 @@
+[build]
+  # Frontend build command and directory
+  command = "cd frontend && npm run build && cp ../_redirects frontend/dist/"
+  publish = "frontend/dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirect all API calls to Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Redirect user-progress with user ID parameter
+[[redirects]]
+  from = "/api/user-progress/:userId"
+  to = "/.netlify/functions/user-progress/:userId"
+  status = 200
+
+# Redirect sessions with user ID parameter
+[[redirects]]
+  from = "/api/sessions/:userId"
+  to = "/.netlify/functions/sessions/:userId"
+  status = 200
+
+# Redirect week summary with user ID parameter
+[[redirects]]
+  from = "/api/week-summary/:userId"
+  to = "/.netlify/functions/sessions/:userId/week-summary"
+  status = 200
+
+# Redirect weekly progress with user ID parameter
+[[redirects]]
+  from = "/api/weekly-progress/:userId"
+  to = "/.netlify/functions/sessions/:userId/weekly-progress"
+  status = 200
+
+# SPA fallback - serve index.html for all routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for CORS and security
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+
+# Headers for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

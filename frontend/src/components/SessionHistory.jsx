@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ENDPOINTS, apiCall } from '../config/api';
 
 const SessionHistory = ({ userId = 'demo-user' }) => {
     const [sessions, setSessions] = useState([]);
@@ -15,8 +16,7 @@ const SessionHistory = ({ userId = 'demo-user' }) => {
     const fetchSessions = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/api/sessions/${userId}`);
-            const data = await response.json();
+            const data = await apiCall(ENDPOINTS.SESSIONS(userId));
             
             if (data.success) {
                 setSessions(data.sessions);
@@ -32,8 +32,7 @@ const SessionHistory = ({ userId = 'demo-user' }) => {
 
     const fetchWeeklyStats = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/week-summary/${userId}`);
-            const data = await response.json();
+            const data = await apiCall(ENDPOINTS.WEEK_SUMMARY(userId));
             
             if (data.success) {
                 setWeeklyStats(data);

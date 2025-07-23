@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ChatScreen from './components/ChatScreen'
 import SessionHistory from './components/SessionHistory'
 import Navigation from './components/Navigation'
+import { ENDPOINTS, apiCall } from './config/api'
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('chat')
@@ -12,8 +13,7 @@ const App = () => {
   useEffect(() => {
     const fetchSessionCount = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/sessions/${userId}`)
-        const data = await response.json()
+        const data = await apiCall(ENDPOINTS.SESSIONS(userId))
         if (data.success) {
           setSessionCount(data.total)
         }

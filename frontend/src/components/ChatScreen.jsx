@@ -1,6 +1,7 @@
 import MessageBubble from './MessageBubble'
 import React, { useState } from 'react'
-import MessageInput from './MessageInput';
+import MessageInput from './MessageInput'
+import { ENDPOINTS, apiCall, uploadFile } from '../config/api';
 
 const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
     const [messages, setMessages] = useState([{
@@ -25,17 +26,15 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
         setMessages(newMessages);
         
         try {
-            const res = await fetch('http://localhost:5000/api/chat', {
+            const data = await apiCall(ENDPOINTS.CHAT, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     message: userText,
                     userId: userId
-                }),
+                })
             });
-            const data = await res.json();
             
-            if (!res.ok) {
+            if (data.error) {
                 setMessages([...newMessages, { 
                     sender: 'bot', 
                     text: 'Error: ' + (data.error || 'Unknown error'),
@@ -73,7 +72,7 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
         } catch (err) {
             setMessages([...newMessages, { 
                 sender: 'bot', 
-                text: 'Network Error: ' + err.message + '. Please check if the backend server is running on port 5000.',
+                text: 'Network Error: ' + err.message + '. Please check your internet connection.',
                 score: null,
                 corrected: null,
                 corrections: [],
@@ -108,16 +107,12 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
         formData.append('userId', userId); // Add userId for session tracking
         
         try {
-            const res = await fetch('http://localhost:5000/api/audio-chat', {
-                method: 'POST',
-                body: formData,
-            });
-            const data = await res.json();
+            const data = await uploadFile(ENDPOINTS.AUDIO_CHAT, formData);
             
             // Remove processing message and add actual results
             setMessages(prev => {
                 const withoutProcessing = prev.slice(0, -1);
-                if (!res.ok) {
+                if (data.error) {
                     return [...withoutProcessing, 
                         { 
                             sender: 'user', 
@@ -180,7 +175,7 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
                     },
                     { 
                         sender: 'bot', 
-                        text: 'Network Error: ' + err.message + '. Please check if the backend server is running on port 5000.',
+                        text: 'Network Error: ' + err.message + '. Please check your internet connection.',
                         score: null,
                         corrected: null,
                         corrections: [],
