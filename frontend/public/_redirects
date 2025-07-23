@@ -1,3 +1,6 @@
+# Health check endpoint
+/api/health /.netlify/functions/health-check 200
+
 # API redirects for Netlify Functions (using simple versions)
 /api/chat /.netlify/functions/chat-simple 200
 /api/audio-chat /.netlify/functions/audio-chat-simple 200
