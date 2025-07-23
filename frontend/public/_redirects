@@ -1,11 +1,13 @@
-# API redirects for Netlify Functions
-/api/chat /.netlify/functions/chat 200
-/api/audio-chat /.netlify/functions/audio-chat 200
-/api/transcribe /.netlify/functions/transcribe 200
-/api/user-progress/* /.netlify/functions/user-progress/:splat 200
-/api/sessions/* /.netlify/functions/sessions/:splat 200
-/api/week-summary/* /.netlify/functions/sessions/:splat/week-summary 200
-/api/leaderboard /.netlify/functions/leaderboard 200
+# API redirects for Netlify Functions (using simple versions)
+/api/chat /.netlify/functions/chat-simple 200
+/api/audio-chat /.netlify/functions/audio-chat-simple 200
+/api/user-progress/* /.netlify/functions/user-progress-simple/:splat 200
+/api/sessions/* /.netlify/functions/sessions-simple/:splat 200
+/api/week-summary/* /.netlify/functions/sessions-simple/:splat/week-summary 200
+/api/leaderboard /.netlify/functions/leaderboard-simple 200
+
+# Disabled complex functions temporarily
+# /api/transcribe /.netlify/functions/transcribe 200
 
 # Single Page Application fallback
 /* /index.html 200
