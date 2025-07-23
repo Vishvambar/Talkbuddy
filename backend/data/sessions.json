@@ -490,5 +490,24 @@
     "timestamp": "2025-07-12T13:11:11.777Z",
     "createdAt": "2025-07-12T13:11:11.778Z",
     "updatedAt": "2025-07-12T13:11:11.778Z"
+  },
+  {
+    "_id": "1752327069830",
+    "user": "demo-user",
+    "transcript": "hello ",
+    "corrected": "Hello! What's on your mind today?",
+    "score": 6,
+    "reply": "Hello! What's on your mind today? How was your week so far?",
+    "feedback": "Great start! Adding a question mark at the end of a sentence can make it more conversational. Remember to also include more context to make your sentence complete.",
+    "corrections": [
+      {
+        "original": "hello ",
+        "corrected": "",
+        "type": "punctuation"
+      }
+    ],
+    "timestamp": "2025-07-12T13:31:09.830Z",
+    "createdAt": "2025-07-12T13:31:09.830Z",
+    "updatedAt": "2025-07-12T13:31:09.830Z"
   }
 ]
