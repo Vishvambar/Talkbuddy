@@ -9,23 +9,47 @@ export const API_BASE_URL = isDevelopment || isLocal
 
 // API endpoints
 export const ENDPOINTS = {
+  // Auth endpoints
+  REGISTER: `${API_BASE_URL}/auth/register`,
+  LOGIN: `${API_BASE_URL}/auth/login`,
+  LOGOUT: `${API_BASE_URL}/auth/logout`,
+  CURRENT_USER: `${API_BASE_URL}/auth/me`,
+  
+  // Chat endpoints
   CHAT: `${API_BASE_URL}/chat`,
   TRANSCRIBE: `${API_BASE_URL}/transcribe`,
   AUDIO_CHAT: `${API_BASE_URL}/audio-chat`,
+  
+  // User data endpoints
   USER_PROGRESS: (userId) => `${API_BASE_URL}/user-progress/${userId}`,
   LEADERBOARD: `${API_BASE_URL}/leaderboard`,
   SESSIONS: (userId) => `${API_BASE_URL}/sessions/${userId}`,
   WEEK_SUMMARY: (userId) => `${API_BASE_URL}/sessions/${userId}/week-summary`
 };
 
-// Helper function to make API calls with proper error handling
+// Get auth token from localStorage
+export const getAuthToken = () => {
+  const user = JSON.parse(localStorage.getItem('talkbuddy_user') || '{}');
+  return user.token || null;
+};
+
+// Helper function to make API calls with proper error handling and authentication
 export const apiCall = async (url, options = {}) => {
   try {
+    // Add auth token to headers if available
+    const token = getAuthToken();
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers
+    };
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    
     const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-      },
+      headers,
+      credentials: 'include', // Include cookies for JWT in httpOnly cookie
       ...options
     });
     
@@ -44,8 +68,18 @@ export const apiCall = async (url, options = {}) => {
 // Helper for form data uploads (audio files)
 export const uploadFile = async (url, formData) => {
   try {
+    // Add auth token to headers if available
+    const token = getAuthToken();
+    const headers = {};
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    
     const response = await fetch(url, {
       method: 'POST',
+      headers,
+      credentials: 'include', // Include cookies for JWT in httpOnly cookie
       body: formData
     });
     

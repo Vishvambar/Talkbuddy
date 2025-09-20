@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 
-const MessageInput = ({onSend, onVoiceMessage}) => {
+const MessageInput = ({onSend, onVoiceMessage, className}) => {
     const [input, setInput] = useState("");
     const [recording, setRecording] = useState(false);
     const [audioBlob, setAudioBlob] = useState(null);
@@ -69,85 +69,81 @@ const MessageInput = ({onSend, onVoiceMessage}) => {
     // If there's an audio blob ready to send
     if (audioBlob) {
         return (
-            <div className='p-4 border-t bg-gray-50'>
-                <div className='flex items-center space-x-2 mb-2'>
-                    <audio controls src={URL.createObjectURL(audioBlob)} className='flex-1' />
-                </div>
-                <div className='flex space-x-2'>
-                    <button 
-                        onClick={sendVoiceMessage}
-                        className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex-1'
-                    >
-                        Send Voice Message
-                    </button>
-                    <button 
-                        onClick={cancelVoiceMessage}
-                        className='bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg'
-                    >
-                        Cancel
-                    </button>
+            <div className="voice-preview">
+                <div className="voice-preview-content">
+                    <div className="audio-player">
+                        <audio controls src={URL.createObjectURL(audioBlob)} />
+                    </div>
+                    <div className="voice-actions">
+                        <button 
+                            onClick={sendVoiceMessage}
+                            className="btn btn-primary"
+                        >
+                            Send Voice Message
+                        </button>
+                        <button 
+                            onClick={cancelVoiceMessage}
+                            className="btn btn-secondary"
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className='p-4 border-t'>
-            <div className='flex items-center space-x-2 mb-2'>
+        <div className="input-container">
+            <div className="input-wrapper">
                 <input
                     type="text"
-                    className='flex-1 p-2 border rounded-lg'
-                    placeholder='Type your message or use voice recording...'
+                    className="input-field"
+                    placeholder='Type your message...'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && !recording && handleSend()}
                     disabled={recording}
                 />
-                <button 
-                    onClick={handleSend}
-                    disabled={recording || !input.trim()}
-                    className='bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg'
-                >
-                    Send
-                </button>
-            </div>
-            
-            <div className='flex items-center space-x-2'>
-                <input
-                    type="file"
-                    accept=".flac,.mp3,.mp4,.mpeg,.mpga,.m4a,.ogg,.opus,.wav,.webm,audio/*"
-                    onChange={handleFileUpload}
-                    disabled={recording}
-                    className='hidden'
-                    id='file-upload'
-                />
-                <label
-                    htmlFor='file-upload'
-                    className='bg-gray-500 hover:bg-gray-600 disabled:bg-gray-400 text-white px-3 py-1 rounded text-sm cursor-pointer'
-                >
-                    📁 Upload Audio
-                </label>
-                
-                {!recording ? (
+                <div className="input-actions">
                     <button 
                         onClick={startRecording}
-                        className='bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm'
+                        disabled={recording}
+                        className={`input-action-btn mic-btn ${recording ? 'recording' : ''}`}
+                        title="Record voice message"
                     >
-                        🎤 Record
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                        </svg>
                     </button>
-                ) : (
+                    <button 
+                        onClick={handleSend}
+                        disabled={recording || !input.trim()}
+                        className="input-action-btn send-btn"
+                        title="Send message"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            {recording && (
+                <div className="recording-indicator">
+                    <div className="recording-pulse"></div>
+                    <span className="recording-text">Recording...</span>
                     <button 
                         onClick={stopRecording}
-                        className='bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm animate-pulse'
+                        className="btn btn-secondary btn-sm"
                     >
-                        ⏹️ Stop Recording
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="6" width="12" height="12" rx="2"/>
+                        </svg>
+                        Stop
                     </button>
-                )}
-                
-                <small className='text-gray-500 text-xs'>
-                    Supported: MP3, WAV, WEBM, OGG, etc.
-                </small>
-            </div>
+                </div>
+            )}
         </div>
     )
 }

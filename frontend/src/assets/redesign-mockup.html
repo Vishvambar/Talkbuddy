@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkBuddy Redesign Mockup</title>
+    <style>
+        :root {
+            --primary-blue: #E0F7FF;
+            --primary-purple: #F0E6FF;
+            --accent-blue: #4A90E2;
+            --text-color: #2D3748;
+            --highlight-coral: #FF7E67;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .app-container {
+            width: 95%;
+            height: 90vh;
+            display: flex;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Left Panel - Quick Settings */
+        .left-panel {
+            width: 20%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ambience-control, .temperature-control {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .control-title {
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 300;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .circular-control {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .circular-control::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: white;
+            z-index: 1;
+        }
+
+        .control-value {
+            position: relative;
+            z-index: 2;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .control-indicators {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            color: var(--text-color);
+        }
+
+        .quick-toggles {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .toggle-button {
+            width: calc(50% - 5px);
+            height: 60px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .toggle-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-icon {
+            font-size: 24px;
+            color: var(--text-color);
+        }
+
+        /* Center Area - Video Call */
+        .center-area {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 30px;
+        }
+
+        .app-header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .app-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--text-color);
+        }
+
+        .video-container {
+            width: 100%;
+            height: 70%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(74, 144, 226, 0.1), rgba(240, 230, 255, 0.1));
+            border-radius: 30px;
+            z-index: 1;
+        }
+
+        .ai-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 30px;
+        }
+
+        .user-video {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 100px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-video-inner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .call-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .call-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .call-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .call-button.end-call {
+            background-color: rgba(255, 126, 103, 0.2);
+        }
+
+        .call-button.end-call:hover {
+            background-color: rgba(255, 126, 103, 0.3);
+        }
+
+        .call-icon {
+            font-size: 20px;
+            color: var(--text-color);
+        }
+
+        .call-button.end-call .call-icon {
+            color: var(--highlight-coral);
+        }
+
+        /* Right Panel - Conversations */
+        .right-panel {
+            width: 20%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: 400;
+        }
+
+        .conversation-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .conversation-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-2px);
+        }
+
+        .conversation-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: var(--accent-blue);
+        }
+
+        .conversation-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .conversation-details {
+            flex: 1;
+        }
+
+        .conversation-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .conversation-subtitle {
+            font-size: 12px;
+            color: rgba(45, 55, 72, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .conversation-score {
+            padding: 2px 6px;
+            border-radius: 10px;
+            background-color: rgba(74, 144, 226, 0.2);
+            font-size: 10px;
+            color: var(--accent-blue);
+        }
+
+        .pagination-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(45, 55, 72, 0.3);
+        }
+
+        .dot.active {
+            background-color: var(--accent-blue);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        /* Placeholder for images */
+        .placeholder {
+            background: linear-gradient(45deg, #f3f3f3, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Panel - Quick Settings -->
+        <div class="left-panel">
+            <div class="ambience-control">
+                <div class="control-title">Customizable Ambience</div>
+                <div class="circular-control">
+                    <div class="control-value">70%</div>
+                </div>
+                <div class="control-indicators">
+                    <div class="indicator">1</div>
+                    <div class="indicator">2</div>
+                    <div class="indicator">3</div>
+                    <div class="indicator">4</div>
+                </div>
+                <div class="control-title" style="font-size: 10px; margin-top: 10px;">Learn More About This Feature</div>
+            </div>
+
+            <div class="temperature-control">
+                <div class="control-title">Set Conversation Style</div>
+                <div class="circular-control">
+                    <div class="control-value">24°C</div>
+                </div>
+                <div class="control-indicators">
+                    <div class="indicator">F</div>
+                    <div class="indicator">C</div>
+                    <div class="indicator">W</div>
+                </div>
+            </div>
+
+            <div class="quick-toggles">
+                <div class="toggle-button">
+                    <div class="toggle-icon">🎤</div>
+                </div>
+                <div class="toggle-button">
+                    <div class="toggle-icon">📷</div>
+                </div>
+                <div class="toggle-button">
+                    <div class="toggle-icon">🖼️</div>
+                </div>
+                <div class="toggle-button">
+                    <div class="toggle-icon">⚙️</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Area - Video Call -->
+        <div class="center-area">
+            <div class="app-header">
+                <div class="app-logo">TALKBUDDY</div>
+            </div>
+
+            <div class="video-container">
+                <div class="ai-video placeholder">AI CONVERSATION PARTNER</div>
+                <div class="user-video">
+                    <div class="user-video-inner placeholder">YOU</div>
+                </div>
+            </div>
+
+            <div class="call-experience">
+                <h2 style="text-align: center; margin: 20px 0; color: var(--text-color); font-weight: 300; font-size: 28px;">PRACTICE SESSION</h2>
+                <p style="text-align: center; color: var(--text-color); font-weight: 300; font-size: 14px; max-width: 80%; margin: 0 auto;">
+                    Experience natural conversation with your AI language partner. Practice speaking English with real-time feedback and corrections to improve your fluency.
+                </p>
+            </div>
+
+            <div class="call-controls">
+                <div class="call-button">
+                    <div class="call-icon">⏪</div>
+                </div>
+                <div class="call-button">
+                    <div class="call-icon">⏯️</div>
+                </div>
+                <div class="call-button">
+                    <div class="call-icon">⏭️</div>
+                </div>
+                <div class="call-button">
+                    <div class="call-icon">⭐</div>
+                </div>
+                <div class="call-button end-call">
+                    <div class="call-icon">✕</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Conversations -->
+        <div class="right-panel">
+            <div class="panel-header">
+                <div class="tab-button active">Sessions</div>
+                <div class="tab-button">Progress</div>
+            </div>
+
+            <div class="conversation-list">
+                <div class="conversation-item">
+                    <div class="conversation-avatar placeholder">AI</div>
+                    <div class="conversation-details">
+                        <div class="conversation-title">Daily Routine</div>
+                        <div class="conversation-subtitle">
+                            <span>40:20</span>
+                            <span class="conversation-score">8.5/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-avatar placeholder">AI</div>
+                    <div class="conversation-details">
+                        <div class="conversation-title">Travel Plans</div>
+                        <div class="conversation-subtitle">
+                            <span>35:15</span>
+                            <span class="conversation-score">7.8/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-avatar placeholder">AI</div>
+                    <div class="conversation-details">
+                        <div class="conversation-title">Job Interview</div>
+                        <div class="conversation-subtitle">
+                            <span>50:30</span>
+                            <span class="conversation-score">9.2/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-avatar placeholder">AI</div>
+                    <div class="conversation-details">
+                        <div class="conversation-title">Restaurant Order</div>
+                        <div class="conversation-subtitle">
+                            <span>20:45</span>
+                            <span class="conversation-score">8.0/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-avatar placeholder">AI</div>
+                    <div class="conversation-details">
+                        <div class="conversation-title">Small Talk</div>
+                        <div class="conversation-subtitle">
+                            <span>15:10</span>
+                            <span class="conversation-score">7.5/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

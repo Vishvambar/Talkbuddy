@@ -552,5 +552,785 @@
     "timestamp": "2025-07-23T14:11:00.660Z",
     "createdAt": "2025-07-23T14:11:00.660Z",
     "updatedAt": "2025-07-23T14:11:00.660Z"
+  },
+  {
+    "_id": "1753699539889",
+    "user": "demo-user",
+    "transcript": "I can read messages",
+    "corrected": "I can read and respond to messages with ease.",
+    "score": 7,
+    "reply": "That's a great skill to have! How do you usually respond to messages, and what kind of messages do you get most often?",
+    "feedback": "Great start! Your sentence is clear and concise, but adding a few more words would make it even more fluent.",
+    "corrections": [
+      {
+        "original": "I can read messages",
+        "corrected": "I can read and respond to messages",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-28T10:45:39.889Z",
+    "createdAt": "2025-07-28T10:45:39.889Z",
+    "updatedAt": "2025-07-28T10:45:39.889Z"
+  },
+  {
+    "_id": "1753699642646",
+    "user": "demo-user",
+    "transcript": " Hello, I am Vishwambar and I am here to learn English.",
+    "corrected": "Hello, my name is Vishwambar and I'm here to learn English.",
+    "score": 7,
+    "reply": "That's awesome! What do you want to learn about English? Is there a particular skill you're looking to improve, like speaking or writing?",
+    "feedback": "Great start! You've got the basics down. To make it even better, try using a more formal greeting like 'Hello, my name is' and keep your sentence structure simple.",
+    "corrections": [
+      {
+        "original": "I am here to learn English.",
+        "corrected": "I'm here to learn English.",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-07-28T10:47:22.646Z",
+    "createdAt": "2025-07-28T10:47:22.646Z",
+    "updatedAt": "2025-07-28T10:47:22.646Z"
+  },
+  {
+    "_id": "1753877877382",
+    "user": "demo-user",
+    "transcript": "hii ",
+    "corrected": "Hello!",
+    "score": 1,
+    "reply": "That's a great start! What do you think about starting a conversation? Do you usually chat with others in English or another language?",
+    "feedback": "Let's start with a proper greeting! A simple 'hi' is great, but adding a capital letter to the beginning and an exclamation mark to the end can make it sound more friendly and enthusiastic.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hello!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-30T12:17:57.382Z",
+    "createdAt": "2025-07-30T12:17:57.382Z",
+    "updatedAt": "2025-07-30T12:17:57.382Z"
+  },
+  {
+    "_id": "1753877917682",
+    "user": "demo-user",
+    "transcript": "no i dont usually chat in english ",
+    "corrected": "I don't usually chat in English, but it's great to chat with you!",
+    "score": 6,
+    "reply": "That's okay, I'm here to help you practice your English! What's your favorite thing about chatting with me so far?",
+    "feedback": "Your sentence is understandable, but it's a good habit to always reply with a polite greeting!",
+    "corrections": [
+      {
+        "original": "no i dont usually chat in english",
+        "corrected": "I don't usually chat in English",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-30T12:18:37.682Z",
+    "createdAt": "2025-07-30T12:18:37.682Z",
+    "updatedAt": "2025-07-30T12:18:37.682Z"
+  },
+  {
+    "_id": "1753880721512",
+    "user": "demo-user",
+    "transcript": "hii , how are you ! ",
+    "corrected": "Hi, how are you doing?",
+    "score": 6,
+    "reply": "Hi! It's great to chat with you. What do you like to do in your free time?",
+    "feedback": "You're close! I noticed a slight typo and a missing word. Keep going, and we can work on polishing your responses!",
+    "corrections": [
+      {
+        "original": "hii ",
+        "corrected": "Hi",
+        "type": "punctuation and word choice"
+      },
+      {
+        "original": " you !",
+        "corrected": "you doing",
+        "type": "vocabulary and sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-30T13:05:21.512Z",
+    "createdAt": "2025-07-30T13:05:21.512Z",
+    "updatedAt": "2025-07-30T13:05:21.512Z"
+  },
+  {
+    "_id": "1753880748106",
+    "user": "demo-user",
+    "transcript": "I love to play free fire in  free time ",
+    "corrected": "I love to play Free Fire in my free time",
+    "score": 7,
+    "reply": "That's a really popular game! Do you play with friends or solo most of the time?",
+    "feedback": "Great effort! You're getting close to speaking fluent English. Just remember to make small corrections in grammar and sentence structure. Also, try using more precise vocabulary like 'in my free time' instead of 'in free time'. This will make your sentence more natural。",
+    "corrections": [
+      {
+        "original": "free time",
+        "corrected": "my free time",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-30T13:05:48.106Z",
+    "createdAt": "2025-07-30T13:05:48.106Z",
+    "updatedAt": "2025-07-30T13:05:48.106Z"
+  },
+  {
+    "_id": "1753990658240",
+    "user": "demo-user",
+    "transcript": "hii ",
+    "corrected": "Hello!",
+    "score": 4,
+    "reply": "Hi! How are you doing today? What's on your mind that you'd like to talk about?",
+    "feedback": "I can see that you're working on getting started, but to make it more natural, we can add a few more letters to make it a proper greeting!",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hello!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-07-31T19:37:38.240Z",
+    "createdAt": "2025-07-31T19:37:38.240Z",
+    "updatedAt": "2025-07-31T19:37:38.240Z"
+  },
+  {
+    "_id": "1753990708192",
+    "user": "demo-user",
+    "transcript": "Nothing, just came here for improving english",
+    "corrected": "I'm here to help you improve your English. What specific areas would you like to focus on?",
+    "score": 6,
+    "reply": "That sounds like a great goal! What's something you'd like to say or express more confidently in English?",
+    "feedback": "Your sentence is understandable, but it's a bit short and could be more clear. I'd love to help you expand on your thoughts!",
+    "corrections": [
+      {
+        "original": "Nothing, just came here for improving english",
+        "corrected": "I'm here to help you improve your English.",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-07-31T19:38:28.192Z",
+    "createdAt": "2025-07-31T19:38:28.192Z",
+    "updatedAt": "2025-07-31T19:38:28.192Z"
+  },
+  {
+    "_id": "1754731147485",
+    "user": "demo-user",
+    "transcript": " Hey buddy, I just came from college today, today is Saturday and I have a lot of work for today so just casually talking to you.",
+    "corrected": "Hey buddy, I just got back from college today and I have a lot of work to do, so I'm just casually chatting with you.",
+    "score": 7,
+    "reply": "That's a lot of work! Have you ever had to handle a heavy workload like that before? What's your usual study routine like?",
+    "feedback": "Great start! Remember to use the correct verb tense and try to rephrase your sentence for better flow. Keep up the good work!",
+    "corrections": [
+      {
+        "original": "today is Saturday and I have a lot of work for today",
+        "corrected": "and I have a lot of work to do today",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-08-09T09:19:07.485Z",
+    "createdAt": "2025-08-09T09:19:07.485Z",
+    "updatedAt": "2025-08-09T09:19:07.485Z"
+  },
+  {
+    "_id": "1754731204120",
+    "user": "demo-user",
+    "transcript": " Yeah, usually I have experience for handling workloads like this as I manage my college projects and the members was not worthy for my group. Members don't know anything about coding and that stuff. They are just in the group like for just signing and that stuff. They are not doing anything. So yeah, I have the experience of that and I'll do it very well.",
+    "corrected": "Yes, I usually have experience managing workloads like this from handling my college projects. Unfortunately, my group members didn't have the necessary skills for coding, and most of them just joined the group for the signature. Since I'm used to working with such members, I'm confident I can handle the workload well.",
+    "score": 7,
+    "reply": "So, it sounds like you're a bit of a project leader! What do you think is the most important quality for a team member to have in a project like this?",
+    "feedback": "You did a great job sharing your experience, but there were a few spots where the grammar and sentence structure could be improved. Try to use more precise phrases and active voice to make your sentences clearer!",
+    "corrections": [
+      {
+        "original": "Members was not worthy for my group",
+        "corrected": "Members didn't have the necessary skills for my group",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-08-09T09:20:04.120Z",
+    "createdAt": "2025-08-09T09:20:04.120Z",
+    "updatedAt": "2025-08-09T09:20:04.120Z"
+  },
+  {
+    "_id": "1754731284857",
+    "user": "demo-user",
+    "transcript": " I think the main important quality for a team member is to maintain good relations with the other team members and have better conversations and skills.",
+    "corrected": "I think the main important quality for a team member is to maintain good relationships with other team members and possess better communication and teamwork skills.",
+    "score": 7,
+    "reply": "That's a great point about team dynamics! What kind of communication skills do you think are most important for team members to possess?",
+    "feedback": "Your sentence is clear and conveys a good idea! To make it even smoother, you can use more precise vocabulary and slightly adjust the sentence structure.",
+    "corrections": [
+      {
+        "original": "to maintain good relations",
+        "corrected": "to maintain good relationships",
+        "type": "vocabulary"
+      },
+      {
+        "original": "and have better conversations and skills",
+        "corrected": "and possess better communication and teamwork skills",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-09T09:21:24.857Z",
+    "createdAt": "2025-08-09T09:21:24.857Z",
+    "updatedAt": "2025-08-09T09:21:24.857Z"
+  },
+  {
+    "_id": "1754731321651",
+    "user": "demo-user",
+    "transcript": " Can we discuss about another topic? Do you have any other topic? I just want to chat with you.",
+    "corrected": "I'd love to discuss another topic! Do you have a specific interest in mind?",
+    "score": 7,
+    "reply": "That's a great idea! What's been on your mind lately that you'd like to chat about or discuss further?",
+    "feedback": "Great effort! The sentence is clear, but try using more precise grammar and sentence structure to make it flow smoothly. Consider using a more formal tone.",
+    "corrections": [
+      {
+        "original": "Do you have any other topic?",
+        "corrected": "Do you have a specific topic in mind?",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-09T09:22:01.651Z",
+    "createdAt": "2025-08-09T09:22:01.651Z",
+    "updatedAt": "2025-08-09T09:22:01.651Z"
+  },
+  {
+    "_id": "1754731354762",
+    "user": "demo-user",
+    "transcript": " I don't have anything on my mind. Can you find any topic interesting? I didn't know that we can talk about.",
+    "corrected": "I'd be happy to! How about we talk about a hobby you're interested in or a recent event you attended?",
+    "score": 7,
+    "reply": "That sounds like a great topic! What's a interest do you have that you've been wanting to share with someone?",
+    "feedback": "Your sentence starters are clear, but you could show more enthusiasm and interest in the conversation by asking more open-ended questions. Also, consider starting with a clear topic or theme.",
+    "corrections": [
+      {
+        "original": "I didn't know that we can talk about",
+        "corrected": "I'd be happy to! How about we talk about",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-08-09T09:22:34.762Z",
+    "createdAt": "2025-08-09T09:22:34.762Z",
+    "updatedAt": "2025-08-09T09:22:34.762Z"
+  },
+  {
+    "_id": "1754734473811",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hello! How are you today?",
+    "score": 4,
+    "reply": "Hey, I'm TalkBuddy! How are you today? What's something you're looking forward to doing this week?",
+    "feedback": "Nice start! Try using a full greeting and a complete sentence next time!",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hello",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-09T10:14:33.811Z",
+    "createdAt": "2025-08-09T10:14:33.811Z",
+    "updatedAt": "2025-08-09T10:14:33.811Z"
+  },
+  {
+    "_id": "1754734493961",
+    "user": "demo-user",
+    "transcript": "nothing just doing study !",
+    "corrected": "I'm just studying right now. Not doing anything else.",
+    "score": 7,
+    "reply": "I'm studying too! What topics are you focusing on today? Are you enjoying what you're learning?",
+    "feedback": "Your sentence is clear, but it's a bit short and simple. You can make it more interesting by adding more detail!",
+    "corrections": [
+      {
+        "original": "nothing just doing study !",
+        "corrected": "I'm just studying right now",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-08-09T10:14:53.961Z",
+    "createdAt": "2025-08-09T10:14:53.961Z",
+    "updatedAt": "2025-08-09T10:14:53.961Z"
+  },
+  {
+    "_id": "1754747423037",
+    "user": "demo-user",
+    "transcript": "nothing makes me happy at all !",
+    "corrected": "Nothing in particular makes me happy at the moment.",
+    "score": 6,
+    "reply": "So, what's been going on that's causing you to feel that way? Maybe we can brainstorm together and find some ways to turn that around.",
+    "feedback": "Your sentence is understandable, but a few small changes can make it sound more natural and fluent. Don't worry, it's easy to improve!",
+    "corrections": [
+      {
+        "original": "nothing makes me happy at all !",
+        "corrected": "Nothing in particular makes me happy at the moment.",
+        "type": "sentence structure, word choice"
+      }
+    ],
+    "timestamp": "2025-08-09T13:50:23.038Z",
+    "createdAt": "2025-08-09T13:50:23.038Z",
+    "updatedAt": "2025-08-09T13:50:23.038Z"
+  },
+  {
+    "_id": "1754748279311",
+    "user": "demo-user",
+    "transcript": "Hey Buddy How are you ?",
+    "corrected": "Hey, Buddy! How are you doing? ",
+    "score": 7,
+    "reply": "That's great to hear! What do you like to do in your free time to relax and have some fun?",
+    "feedback": "Good job with the greeting! However, a more formal way of ending the sentence would make it sound more natural. Also, consider adding a bit more detail to make it a more substantial conversation starter.",
+    "corrections": [
+      {
+        "original": "How are you ?",
+        "corrected": "How are you doing?",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-08-09T14:04:39.311Z",
+    "createdAt": "2025-08-09T14:04:39.311Z",
+    "updatedAt": "2025-08-09T14:04:39.311Z"
+  },
+  {
+    "_id": "1754748407731",
+    "user": "demo-user",
+    "transcript": " Hey buddy, how are you? I'm going to have the chat with you I'm going to have the chat with you",
+    "corrected": "Hey buddy, how are you? I'd love to chat with you too!",
+    "score": 6,
+    "reply": "Hey, what's been going on in your life lately? Anything exciting you want to share?",
+    "feedback": "You're getting close! Try to rephrase the sentence to make it clearer and more concise. Also, try to avoid repeating yourself to make the conversation more engaging",
+    "corrections": [
+      {
+        "original": "I'm going to have the chat with you I'm going to have the chat with you",
+        "corrected": "Hey buddy, how are you? I'd love to chat with you too!",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-08-09T14:06:47.731Z",
+    "createdAt": "2025-08-09T14:06:47.731Z",
+    "updatedAt": "2025-08-09T14:06:47.731Z"
+  },
+  {
+    "_id": "1754748580638",
+    "user": "demo-user",
+    "transcript": "dfjkhdf",
+    "corrected": "Unfortunately, I didn't understand the text 'dfjkhdf'. Could you please rephrase it?",
+    "score": 1,
+    "reply": "What would you like to talk about today? Do you have a topic in mind or would you like me to suggest some conversation starters?",
+    "feedback": "I'm here to help you improve your English, but I need to understand what you're trying to say.",
+    "corrections": [
+      {
+        "original": "dfjkhdf",
+        "corrected": "Please rephrase your message",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-09T14:09:40.638Z",
+    "createdAt": "2025-08-09T14:09:40.638Z",
+    "updatedAt": "2025-08-09T14:09:40.638Z"
+  },
+  {
+    "_id": "1754748585014",
+    "user": "demo-user",
+    "transcript": "sdfds",
+    "corrected": "I didn't quite understand that message. Could you please rephrase it for me?",
+    "score": 1,
+    "reply": "What brings you to our conversation today, and how can I help you with your English?",
+    "feedback": "The text contains some invalid characters that make it difficult to understand. Let's try rewriting it together!",
+    "corrections": [
+      {
+        "original": "sdfds",
+        "corrected": "I didn't quite understand that message",
+        "type": "structure"
+      }
+    ],
+    "timestamp": "2025-08-09T14:09:45.015Z",
+    "createdAt": "2025-08-09T14:09:45.016Z",
+    "updatedAt": "2025-08-09T14:09:45.016Z"
+  },
+  {
+    "_id": "1754754399663",
+    "user": "demo-user",
+    "transcript": "dhfdjf",
+    "corrected": "The corrected version of the text",
+    "score": 1,
+    "reply": "Hi! It looks like this is your first message. How are you feeling today? Is there something specific you'd like to talk about or work on?",
+    "feedback": "The text doesn't seem to make sense and lacks coherence. It might be helpful to start with a clearer thought.",
+    "corrections": [
+      {
+        "original": "dhfdjf",
+        "corrected": "A clear and concise sentence",
+        "type": "structure"
+      }
+    ],
+    "timestamp": "2025-08-09T15:46:39.663Z",
+    "createdAt": "2025-08-09T15:46:39.663Z",
+    "updatedAt": "2025-08-09T15:46:39.663Z"
+  },
+  {
+    "_id": "1754754404198",
+    "user": "demo-user",
+    "transcript": "dfhj",
+    "corrected": "I'm not sure what you're trying to say, could you please rephrase?",
+    "score": 2,
+    "reply": "Can you tell me what's on your mind? Is there something specific you'd like to talk about or ask?",
+    "feedback": "It looks like there might be some language barriers, don't worry, it's completely normal! Let's try to simplify the message and get started.",
+    "corrections": [
+      {
+        "original": "dfhj",
+        "corrected": "",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-09T15:46:44.198Z",
+    "createdAt": "2025-08-09T15:46:44.198Z",
+    "updatedAt": "2025-08-09T15:46:44.198Z"
+  },
+  {
+    "_id": "1754755754387",
+    "user": "demo-user",
+    "transcript": "hii am i right ",
+    "corrected": "Hi, am I right?",
+    "score": 6,
+    "reply": "That's a great question! What's the context behind 'am I right'? Are you checking in with someone or trying to validate something?",
+    "feedback": "Great effort! Just a couple small tweaks to make it sound more natural.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi",
+        "type": "vocabulary"
+      },
+      {
+        "original": "am i right",
+        "corrected": "am I right?",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-08-09T16:09:14.387Z",
+    "createdAt": "2025-08-09T16:09:14.387Z",
+    "updatedAt": "2025-08-09T16:09:14.387Z"
+  },
+  {
+    "_id": "1754758754531",
+    "user": "demo-user",
+    "transcript": "hello , what about we can discuss today ?",
+    "corrected": "Hello, what would you like to discuss today?",
+    "score": 7,
+    "reply": "Cool! Do you have a particular topic in mind, or do you want me to suggest some conversation starters?",
+    "feedback": "Great start! Just a slight adjustment to make it sound more natural. Remember, we use articles in front of nouns to make sentences clearer.",
+    "corrections": [
+      {
+        "original": "what about we can discuss today ?",
+        "corrected": "what would you like to discuss today?",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-09T16:59:14.532Z",
+    "createdAt": "2025-08-09T16:59:14.532Z",
+    "updatedAt": "2025-08-09T16:59:14.532Z"
+  },
+  {
+    "_id": "1754758816466",
+    "user": "demo-user",
+    "transcript": "I want you to suggest !",
+    "corrected": "I'd be happy to suggest something! What do you need help with?",
+    "score": 5,
+    "reply": "I'd be happy to suggest something! What do you need help with? I'm all ears! What's been going on that you'd like some suggestions for?",
+    "feedback": "Great start! Remember to complete your sentence and ask a specific question to get a better response.",
+    "corrections": [
+      {
+        "original": "I want you to suggest !",
+        "corrected": "",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-08-09T17:00:16.466Z",
+    "createdAt": "2025-08-09T17:00:16.466Z",
+    "updatedAt": "2025-08-09T17:00:16.466Z"
+  },
+  {
+    "_id": "1754762679197",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi",
+    "score": 2,
+    "reply": "Hi! How's your day going so far? Do you have any fun plans for the weekend?",
+    "feedback": "I can see you're trying to greet me, but we usually write 'hi' without the 'i' at the beginning in English!",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "hi",
+        "type": "punctuation"
+      }
+    ],
+    "timestamp": "2025-08-09T18:04:39.198Z",
+    "createdAt": "2025-08-09T18:04:39.198Z",
+    "updatedAt": "2025-08-09T18:04:39.198Z"
+  },
+  {
+    "_id": "1754771094570",
+    "user": "demo-user",
+    "transcript": "df",
+    "corrected": "Hello? Did you mean to send a message?",
+    "score": 2,
+    "reply": "Why don't you start fresh with a question or a topic you'd like to talk about? Maybe we can discuss something fun, like your favorite hobby?",
+    "feedback": "Try starting with a sentence that makes sense and we can chat away!",
+    "corrections": [
+      {
+        "original": "df",
+        "corrected": "a clear sentence",
+        "type": "vocabulary/sentence structure"
+      }
+    ],
+    "timestamp": "2025-08-09T20:24:54.570Z",
+    "createdAt": "2025-08-09T20:24:54.570Z",
+    "updatedAt": "2025-08-09T20:24:54.570Z"
+  },
+  {
+    "_id": "1754832196854",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 2,
+    "reply": "Hi! How's your day going so far? What are you looking forward to doing today?",
+    "feedback": "Hii is a bit informal, and it's common to use a greeting like 'Hi' or 'Hello' instead. Let's work on structure!",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-10T13:23:16.855Z",
+    "createdAt": "2025-08-10T13:23:16.855Z",
+    "updatedAt": "2025-08-10T13:23:16.855Z"
+  },
+  {
+    "_id": "1754832214189",
+    "user": "demo-user",
+    "transcript": "i need to follo wsomething new for my routine of gim ",
+    "corrected": "I need to follow something new for my daily routine so I can get fit.",
+    "score": 6,
+    "reply": "That's a great goal! What kind of activities are you planning to do to get fit?",
+    "feedback": "Great effort! It looks like a mix of letters and phrases, which is a common challenge. Remember to use full words and grammar rules to make your sentences clear and easy to understand.",
+    "corrections": [
+      {
+        "original": "i need to follo wsomething new",
+        "corrected": "I need to follow something new",
+        "type": "grammar, sentence structure"
+      },
+      {
+        "original": "for my routine of gim",
+        "corrected": "for my daily routine so I can get fit",
+        "type": "vocabulary, sentence structure"
+      }
+    ],
+    "timestamp": "2025-08-10T13:23:34.189Z",
+    "createdAt": "2025-08-10T13:23:34.189Z",
+    "updatedAt": "2025-08-10T13:23:34.189Z"
+  },
+  {
+    "_id": "1754832787521",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 4,
+    "reply": "Hi! How's your day going so far?",
+    "feedback": "Nice start! Remember to use capital letters and punctuation to make your greeting more formal.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-10T13:33:07.521Z",
+    "createdAt": "2025-08-10T13:33:07.521Z",
+    "updatedAt": "2025-08-10T13:33:07.521Z"
+  },
+  {
+    "_id": "1754832805114",
+    "user": "demo-user",
+    "transcript": "nice , just came from college !",
+    "corrected": "Nice, I just came from college!",
+    "score": 7,
+    "reply": "That's awesome! What did you study at college?",
+    "feedback": "Your sentence was mostly understandable, but adding a small correction would improve its clarity and fluency.",
+    "corrections": [
+      {
+        "original": "just came from college !",
+        "corrected": "just came from college",
+        "type": "punctuation"
+      }
+    ],
+    "timestamp": "2025-08-10T13:33:25.114Z",
+    "createdAt": "2025-08-10T13:33:25.114Z",
+    "updatedAt": "2025-08-10T13:33:25.114Z"
+  },
+  {
+    "_id": "1754832845167",
+    "user": "demo-user",
+    "transcript": " Hi, just have any suggestions for chatting?",
+    "corrected": "Do you have any suggestions for chatting?",
+    "score": 7,
+    "reply": "I can definitely give you some suggestions! Have you ever tried conversational games like 'Would you rather' or 'Two Truths and a Lie'? What do you think about playing those with me?",
+    "feedback": "Great effort! Just a small tweak to make it sound more natural.",
+    "corrections": [
+      {
+        "original": "just have any suggestions for chatting?",
+        "corrected": "Do you have any suggestions for chatting?",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-10T13:34:05.167Z",
+    "createdAt": "2025-08-10T13:34:05.167Z",
+    "updatedAt": "2025-08-10T13:34:05.167Z"
+  },
+  {
+    "_id": "1755445611178",
+    "user": "1755445600529",
+    "transcript": "hii",
+    "corrected": "Hello!",
+    "score": 4,
+    "reply": "Hi! How's your day going so far? What's something exciting you've done recently?",
+    "feedback": "Hi! You can start with a proper greeting, like 'hello' or 'hi, how are you?'",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hello",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-17T15:46:51.178Z",
+    "createdAt": "2025-08-17T15:46:51.178Z",
+    "updatedAt": "2025-08-17T15:46:51.178Z"
+  },
+  {
+    "_id": "1755445613763",
+    "user": "1755445600529",
+    "transcript": "hii",
+    "corrected": "Hello!",
+    "score": 4,
+    "reply": "So, how's your day going so far? What's been the highlight?",
+    "feedback": "Hi! It's great to chat with you, but let's start with a properly spelled greeting.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hello!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-17T15:46:53.763Z",
+    "createdAt": "2025-08-17T15:46:53.764Z",
+    "updatedAt": "2025-08-17T15:46:53.764Z"
+  },
+  {
+    "_id": "1755451170626",
+    "user": "1755445600529",
+    "transcript": "hi",
+    "corrected": "Hi! How are you today?",
+    "score": 6,
+    "reply": "Hi! How are you today? What's been going on in your life lately? I'm always here to listen and help with your English.",
+    "feedback": "Great start! Just a suggestion to add a little more to your greeting",
+    "corrections": [
+      {
+        "original": "hi",
+        "corrected": "hi! How are you today?",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-17T17:19:30.626Z",
+    "createdAt": "2025-08-17T17:19:30.626Z",
+    "updatedAt": "2025-08-17T17:19:30.626Z"
+  },
+  {
+    "_id": "1755451203243",
+    "user": "1755445600529",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 2,
+    "reply": "Hi! I'm so excited to have this conversation! What brings you here today?",
+    "feedback": "I love your enthusiasm! To make it sound more natural, we can add the letter 'e' to the beginning. It's a common way to start a conversation in English.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi!",
+        "type": "vocabulary"
+      }
+    ],
+    "timestamp": "2025-08-17T17:20:03.243Z",
+    "createdAt": "2025-08-17T17:20:03.243Z",
+    "updatedAt": "2025-08-17T17:20:03.243Z"
+  },
+  {
+    "_id": "1755451380005",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 4,
+    "reply": "Hi! How was your day so far?",
+    "feedback": "Great start! Remember to spell your greeting correctly.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "hi",
+        "type": "spelling"
+      }
+    ],
+    "timestamp": "2025-08-17T17:23:00.005Z",
+    "createdAt": "2025-08-17T17:23:00.005Z",
+    "updatedAt": "2025-08-17T17:23:00.005Z"
+  },
+  {
+    "_id": "1755451695867",
+    "user": "demo-user",
+    "transcript": "hello",
+    "corrected": "Hello! How are you today?",
+    "score": 6,
+    "reply": "Hello! How are you today? That's a great start! What do you usually talk about with your friends or family?",
+    "feedback": "You used a simple and common greeting, but could add more to make it more complete.",
+    "corrections": [
+      {
+        "original": "hello",
+        "corrected": "Hello! How are you today?",
+        "type": "sentence structure"
+      }
+    ],
+    "timestamp": "2025-08-17T17:28:15.867Z",
+    "createdAt": "2025-08-17T17:28:15.867Z",
+    "updatedAt": "2025-08-17T17:28:15.867Z"
+  },
+  {
+    "_id": "1755451742069",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 6,
+    "reply": "Hi there! What's on your mind today? Want to talk about something in particular or just say hi?",
+    "feedback": "Great effort! Remember to start with a capital letter and include a greeting.",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi!",
+        "type": "capitalization"
+      }
+    ],
+    "timestamp": "2025-08-17T17:29:02.069Z",
+    "createdAt": "2025-08-17T17:29:02.069Z",
+    "updatedAt": "2025-08-17T17:29:02.069Z"
+  },
+  {
+    "_id": "1755451787570",
+    "user": "demo-user",
+    "transcript": "hii",
+    "corrected": "Hi!",
+    "score": 4,
+    "reply": "Hi! That's a short and sweet hello! What's something exciting you'd like to talk about today?",
+    "feedback": "Don't forget to use capital letters at the beginning of your sentence, and consider adding more words to make your message more complete",
+    "corrections": [
+      {
+        "original": "hii",
+        "corrected": "Hi!",
+        "type": "grammar"
+      }
+    ],
+    "timestamp": "2025-08-17T17:29:47.570Z",
+    "createdAt": "2025-08-17T17:29:47.570Z",
+    "updatedAt": "2025-08-17T17:29:47.570Z"
   }
 ]

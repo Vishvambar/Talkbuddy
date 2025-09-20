@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkBuddy - Your AI English Coach</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F9FC;
+        }
+
+        /* Custom styles for animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Custom scrollbar for testimonial carousel */
+        .testimonial-carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .testimonial-carousel::-webkit-scrollbar-track {
+            background: #E5E7EB;
+            border-radius: 9999px;
+        }
+
+        .testimonial-carousel::-webkit-scrollbar-thumb {
+            background: #9CA3AF;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navigation Bar -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-2">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="#007AFF"/>
+                    <path d="M10 13H22V19H10V13Z" fill="white" opacity="0.9"/>
+                    <circle cx="17" cy="16" r="2" fill="#007AFF"/>
+                    <circle cx="23" cy="16" r="2" fill="#007AFF"/>
+                    <path d="M14 22C15.5 20.5 18.5 20.5 20 22" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span class="text-2xl font-bold text-gray-900">TalkBuddy</span>
+            </div>
+            <!-- CTA Button -->
+            <a href="#" class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors">
+                Get Started Free
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white relative overflow-hidden py-16 md:py-24">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 opacity-50"></div>
+            <div class="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                <!-- Hero Text Content -->
+                <div class="text-center md:text-left fade-in">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900 mb-6">
+                        Become a <span class="text-blue-600">Fluent English Speaker</span> with AI that Listens.
+                    </h1>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 max-w-xl mx-auto md:mx-0">
+                        Improve your English fluency through natural conversations. Get instant feedback, track your progress, and build confidence in speaking.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+                        <a href="#" class="bg-blue-600 text-white font-bold text-lg py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 transition-all transform hover:-translate-y-1">
+                            Try TalkBuddy for Free
+                        </a>
+                        <a href="#" class="text-blue-600 font-semibold text-lg py-3 px-8 rounded-full transition-colors hover:bg-blue-50">
+                            Watch a Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- App Mockup Visual -->
+                <div class="flex justify-center items-center float-animation">
+                    <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-gray-100 w-full max-w-sm">
+                        <!-- Header -->
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">AI</div>
+                            <div>
+                                <h3 class="font-bold text-gray-900">TalkBuddy AI</h3>
+                                <p class="text-sm text-green-500">Online</p>
+                            </div>
+                        </div>
+                        <!-- Chat Bubbles -->
+                        <div class="space-y-4">
+                            <!-- AI Message -->
+                            <div class="flex justify-start">
+                                <div class="bg-gray-100 text-gray-800 p-3 rounded-xl rounded-bl-none max-w-[85%]">
+                                    Hello! I'm here to help you improve your English. Let's start a conversation!
+                                </div>
+                            </div>
+                            <!-- User Message -->
+                            <div class="flex justify-end">
+                                <div class="bg-blue-500 text-white p-3 rounded-xl rounded-br-none max-w-[85%]">
+                                    Hi! I want to practice speaking English.
+                                </div>
+                            </div>
+                            <!-- Feedback Bubble -->
+                            <div class="flex justify-end fade-in">
+                                <div class="bg-green-500 text-white p-2 text-sm rounded-lg max-w-[70%]">
+                                    <span class="font-bold">9/10</span> - Great pronunciation!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Why TalkBuddy?</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Experience the future of language learning with our AI-powered English coach.
+                    </p>
+                </div>
+                <!-- Features Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+                    <!-- Feature 1 -->
+                    <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 text-center md:text-left fade-in">
+                        <div class="flex-shrink-0 w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center">
+                            <svg class="w-12 h-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-4m0 0a3 3 0 013-3m-3 3a3 3 0 01-3 3m6 0a3 3 0 00-3-3m3 3a3 3 0 003 3m6 0a3 3 0 01-3-3m3 3a3 3 0 01-3-3m-3-3a3 3 0 013 3m-3-3a3 3 0 01-3-3m3 3a3 3 0 003 3m3 3a3 3 0 00-3-3m-3 3a3 3 0 00-3-3m3 3a3 3 0 013-3m-3-3a3 3 0 01-3-3m3 3a3 3 0 003 3m-3 3a3 3 0 00-3-3m3 3a3 3 0 013-3m3 3a3 3 0 01-3-3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Instant, Personalized Feedback</h3>
+                            <p class="text-gray-600">
+                                Our AI listens and provides real-time corrections on your grammar, vocabulary, and pronunciation, so you can learn on the fly.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 text-center md:text-left fade-in">
+                        <div class="flex-shrink-0 w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center">
+                            <svg class="w-12 h-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m-6-6a9 9 0 110 18A9 9 0 0112 8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Practice 24/7, No Judgment</h3>
+                            <p class="text-gray-600">
+                                Your AI coach is available anytime you are, making it easy to practice without the pressure of speaking with a human.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 text-center md:text-left fade-in">
+                        <div class="flex-shrink-0 w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center">
+                            <svg class="w-12 h-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8m-4 4V8m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Conversations on Your Terms</h3>
+                            <p class="text-gray-600">
+                                Talk about any topic you're interested in, from casual conversations to professional interviews, all tailored to your needs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section with Carousel -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Join thousands of learners who have improved their English with TalkBuddy.
+                    </p>
+                </div>
+                <!-- Testimonial Carousel Container -->
+                <div class="flex overflow-x-auto gap-8 pb-4 testimonial-carousel">
+                    <!-- Testimonial Card 1 -->
+                    <div class="flex-shrink-0 w-[90%] sm:w-[50%] md:w-[30%] bg-white p-8 rounded-2xl shadow-md border border-gray-100 transform hover:scale-105 transition-transform duration-300">
+                        <div class="flex items-center space-x-2 text-yellow-400 mb-4">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="text-xl font-semibold text-gray-700 mb-4 leading-relaxed">
+                            "TalkBuddy helped me gain confidence in speaking English. The real-time feedback is amazing!"
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <img class="w-12 h-12 rounded-full object-cover" src="https://placehold.co/150x150/dbeafe/1e40af?text=PS" alt="Priya Sharma">
+                            <div>
+                                <p class="font-bold text-gray-900">Priya Sharma</p>
+                                <p class="text-sm text-gray-500">College Student</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial Card 2 -->
+                    <div class="flex-shrink-0 w-[90%] sm:w-[50%] md:w-[30%] bg-white p-8 rounded-2xl shadow-md border border-gray-100 transform hover:scale-105 transition-transform duration-300">
+                        <div class="flex items-center space-x-2 text-yellow-400 mb-4">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="text-xl font-semibold text-gray-700 mb-4 leading-relaxed">
+                            "The progress tracking feature keeps me motivated. I can see my improvement every day."
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <img class="w-12 h-12 rounded-full object-cover" src="https://placehold.co/150x150/dbeafe/1e40af?text=AS" alt="Anita Singh">
+                            <div>
+                                <p class="font-bold text-gray-900">Anita Singh</p>
+                                <p class="text-sm text-gray-500">Job Seeker</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial Card 3 -->
+                    <div class="flex-shrink-0 w-[90%] sm:w-[50%] md:w-[30%] bg-white p-8 rounded-2xl shadow-md border border-gray-100 transform hover:scale-105 transition-transform duration-300">
+                        <div class="flex items-center space-x-2 text-yellow-400 mb-4">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.27l-6.18 3.29L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="text-xl font-semibold text-gray-700 mb-4 leading-relaxed">
+                            "I improved my pronunciation significantly in just 2 months. Highly recommended!"
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <img class="w-12 h-12 rounded-full object-cover" src="https://placehold.co/150x150/dbeafe/1e40af?text=RP" alt="Rahul Patel">
+                            <div>
+                                <p class="font-bold text-gray-900">Rahul Patel</p>
+                                <p class="text-sm text-gray-500">Working Professional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="py-16 bg-blue-600">
+            <div class="container mx-auto px-4 text-center text-white">
+                <h2 class="text-3xl font-bold mb-4">Ready to Transform Your English?</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">
+                    Join thousands of learners who are already improving their English with TalkBuddy.
+                </p>
+                <a href="#" class="bg-white text-blue-600 font-bold text-lg py-4 px-12 rounded-full shadow-xl hover:bg-gray-100 transition-colors transform hover:-translate-y-1">
+                    Start Your Free Trial
+                </a>
+                <p class="text-sm mt-4 opacity-80">No credit card required • Free forever plan available</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="#007AFF"/>
+                    <path d="M10 13H22V19H10V13Z" fill="white" opacity="0.9"/>
+                    <circle cx="17" cy="16" r="2" fill="#007AFF"/>
+                    <circle cx="23" cy="16" r="2" fill="#007AFF"/>
+                    <path d="M14 22C15.5 20.5 18.5 20.5 20 22" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span class="text-xl font-bold">TalkBuddy</span>
+            </div>
+            <p class="text-sm text-gray-400 max-w-lg mx-auto mb-4">
+                Your AI English coach for fluent conversations and confident communication.
+            </p>
+            <p class="text-xs text-gray-500">&copy; 2024 TalkBuddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll animation for testimonial carousel
+        function setupCarouselScroll() {
+            const carousel = document.querySelector('.testimonial-carousel');
+            if (carousel) {
+                let isMouseDown = false;
+                let startX;
+                let scrollLeft;
+
+                carousel.addEventListener('mousedown', (e) => {
+                    isMouseDown = true;
+                    carousel.classList.add('cursor-grabbing');
+                    startX = e.pageX - carousel.offsetLeft;
+                    scrollLeft = carousel.scrollLeft;
+                });
+
+                carousel.addEventListener('mouseleave', () => {
+                    isMouseDown = false;
+                    carousel.classList.remove('cursor-grabbing');
+                });
+
+                carousel.addEventListener('mouseup', () => {
+                    isMouseDown = false;
+                    carousel.classList.remove('cursor-grabbing');
+                });
+
+                carousel.addEventListener('mousemove', (e) => {
+                    if (!isMouseDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - carousel.offsetLeft;
+                    const walk = (x - startX) * 2; // The scroll speed
+                    carousel.scrollLeft = scrollLeft - walk;
+                });
+
+                // Add scroll-snapping for better UX on mobile/touch devices
+                carousel.style.scrollSnapType = 'x mandatory';
+                carousel.querySelectorAll('div').forEach(card => {
+                    card.style.scrollSnapAlign = 'start';
+                });
+            }
+        }
+
+        // Initialize animations on load
+        function initializeAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+                observer.observe(el);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setupCarouselScroll();
+            initializeAnimations();
+        });
+    </script>
+
+</body>
+</html>

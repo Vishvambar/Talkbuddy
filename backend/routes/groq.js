@@ -1,9 +1,10 @@
 import express from 'express';
-import { chatWithGroq } from '../utils/groqClient.js';
+import { chatWithGroq, streamChatWithGroq } from '../utils/groqClient.js';
 import { transcribeAudio } from '../utils/groqWhisper.js';
 import { analyzeTextFluency, getEnhancedSystemPrompt } from '../utils/fluencyAnalyzer.js';
 import { saveSession, getUserSessions, getWeeklySummary } from '../services/sessionService.js';
 import { updateUserProgress, getUserProgress, getLeaderboard, getWeeklyProgress } from '../services/gamificationService.js';
+import { protect } from '../middleware/authMiddleware.js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
@@ -30,56 +31,152 @@ const upload = multer({
   }
 });
 
-// Enhanced chat endpoint with fluency analysis
+// Enhanced chat endpoint with fluency analysis and streaming support
 router.post('/chat', async (req, res) => {
+  // Check if client supports SSE
+  const acceptsSSE = req.headers.accept && req.headers.accept.includes('text/event-stream');
+  const isStreaming = req.query.stream === 'true' && acceptsSSE;
+  
   try {
     const userMessage = req.body.message;
-    const userId = req.body.userId || 'anonymous';
+    // Get user ID from authenticated user or from request body
+    const userId = req.user ? req.user.id : (req.body.userId || 'anonymous');
     
-    // Analyze user's text for fluency
-    const analysis = await analyzeTextFluency(userMessage);
-    
-    // Save session data
-    try {
-      await saveSession({
-        user: userId,
-        transcript: userMessage,
-        corrected: analysis.corrected,
-        score: analysis.score,
+    if (isStreaming) {
+      // Set headers for SSE
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.flushHeaders();
+      
+      // Analyze user's text for fluency
+      const analysis = await analyzeTextFluency(userMessage);
+      
+      // Send fluency data immediately
+      res.write(`event: fluency\ndata: ${JSON.stringify(analysis)}\n\n`);
+      
+      // Stream response from Groq
+      const enhancedPrompt = getEnhancedSystemPrompt(userMessage);
+      await streamChatWithGroq(enhancedPrompt, (chunk) => {
+        res.write(`event: chunk\ndata: ${JSON.stringify({ chunk })}\n\n`);
+      });
+      
+      // Save session data
+      try {
+        // Ensure corrections is properly formatted as an array of objects
+        let formattedCorrections = [];
+        if (analysis.corrections) {
+          // If corrections is a string, try to parse it
+          if (typeof analysis.corrections === 'string') {
+            try {
+              formattedCorrections = JSON.parse(analysis.corrections);
+            } catch (parseError) {
+              console.error('Failed to parse corrections string:', parseError);
+              formattedCorrections = [];
+            }
+          } else if (Array.isArray(analysis.corrections)) {
+            formattedCorrections = analysis.corrections;
+          }
+        }
+        
+        await saveSession({
+          user: userId,
+          transcript: userMessage,
+          corrected: analysis.corrected,
+          score: analysis.score,
+          reply: analysis.reply,
+          feedback: analysis.feedback || '',
+          corrections: formattedCorrections
+        });
+      } catch (saveError) {
+        console.error('Failed to save session:', saveError);
+        // Don't fail the request if saving fails
+      }
+      
+      // Update gamification progress
+      let gamificationData = {};
+      try {
+        const progressUpdate = await updateUserProgress(userId, {
+          score: analysis.score,
+          isVoiceMessage: false
+        });
+        gamificationData = progressUpdate;
+      } catch (gamificationError) {
+        console.error('Failed to update gamification:', gamificationError);
+        // Don't fail the request if gamification fails
+      }
+      
+      // Send completion event with gamification data
+      res.write(`event: done\ndata: ${JSON.stringify(gamificationData)}\n\n`);
+      res.end();
+    } else {
+      // Non-streaming response (original behavior)
+      // Analyze user's text for fluency
+      const analysis = await analyzeTextFluency(userMessage);
+      
+      // Ensure corrections is properly formatted as an array of objects
+      let formattedCorrections = [];
+      if (analysis.corrections) {
+        // If corrections is a string, try to parse it
+        if (typeof analysis.corrections === 'string') {
+          try {
+            formattedCorrections = JSON.parse(analysis.corrections);
+          } catch (parseError) {
+            console.error('Failed to parse corrections string:', parseError);
+            formattedCorrections = [];
+          }
+        } else if (Array.isArray(analysis.corrections)) {
+          formattedCorrections = analysis.corrections;
+        }
+      }
+      
+      // Save session data
+      try {
+        await saveSession({
+          user: userId,
+          transcript: userMessage,
+          corrected: analysis.corrected,
+          score: analysis.score,
+          reply: analysis.reply,
+          feedback: analysis.feedback || '',
+          corrections: formattedCorrections
+        });
+      } catch (saveError) {
+        console.error('Failed to save session:', saveError);
+        // Don't fail the request if saving fails
+      }
+      
+      // Update gamification progress
+      let gamificationData = {};
+      try {
+        const progressUpdate = await updateUserProgress(userId, {
+          score: analysis.score,
+          isVoiceMessage: false
+        });
+        gamificationData = progressUpdate;
+      } catch (gamificationError) {
+        console.error('Failed to update gamification:', gamificationError);
+        // Don't fail the request if gamification fails
+      }
+      
+      res.json({
         reply: analysis.reply,
-        feedback: analysis.feedback || '',
-        corrections: analysis.corrections || []
-      });
-    } catch (saveError) {
-      console.error('Failed to save session:', saveError);
-      // Don't fail the request if saving fails
-    }
-    
-    // Update gamification progress
-    let gamificationData = {};
-    try {
-      const progressUpdate = await updateUserProgress(userId, {
         score: analysis.score,
-        isVoiceMessage: false
+        corrected: analysis.corrected,
+        corrections: analysis.corrections,
+        feedback: analysis.feedback,
+        // Gamification data
+        ...gamificationData
       });
-      gamificationData = progressUpdate;
-    } catch (gamificationError) {
-      console.error('Failed to update gamification:', gamificationError);
-      // Don't fail the request if gamification fails
     }
-    
-    res.json({
-      reply: analysis.reply,
-      score: analysis.score,
-      corrected: analysis.corrected,
-      corrections: analysis.corrections,
-      feedback: analysis.feedback,
-      // Gamification data
-      ...gamificationData
-    });
   } catch (err) {
     console.error('Chat error:', err.response?.data || err.message);
-    res.status(500).json({ error: 'Chat processing failed' });
+    if (isStreaming) {
+      res.write(`event: error\ndata: ${JSON.stringify({ error: 'Chat processing failed' })}\n\n`);
+      res.end();
+    } else {
+      res.status(500).json({ error: 'Chat processing failed' });
+    }
   }
 });
 

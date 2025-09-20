@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MessageBubble = ({ sender, text, score, corrected, corrections, feedback }) => {
+const MessageBubble = ({ sender, text, score, corrected, corrections, feedback, isStreaming }) => {
     const isUser = sender === "user";
     const isBot = sender === "bot";
 
@@ -13,7 +13,7 @@ const MessageBubble = ({ sender, text, score, corrected, corrections, feedback }
         corrections.forEach((correction, index) => {
             const regex = new RegExp(`\\b${correction.original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
             highlightedText = highlightedText.replace(regex, 
-                `<span class="bg-red-200 text-red-800 px-1 rounded" title="Correction: ${correction.corrected}">❌ ${correction.original}</span>`
+                `<span class="correction-highlight" title="Correction: ${correction.corrected}">❌ ${correction.original}</span>`
             );
         });
         return highlightedText;
@@ -23,14 +23,14 @@ const MessageBubble = ({ sender, text, score, corrected, corrections, feedback }
         if (!corrections || corrections.length === 0) return null;
         
         return (
-            <div className="mt-2 text-xs">
-                <div className="font-semibold text-gray-600 mb-1">Corrections:</div>
+            <div className="message-corrections">
+                <div className="corrections-label">Corrections:</div>
                 {corrections.map((correction, index) => (
-                    <div key={index} className="mb-1">
-                        <span className="bg-red-100 text-red-700 px-2 py-1 rounded mr-2">
+                    <div key={index} className="correction-item">
+                        <span className="correction-original">
                             ❌ {correction.original}
                         </span>
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded">
+                        <span className="correction-fixed">
                             ✅ {correction.corrected}
                         </span>
                     </div>
@@ -40,28 +40,31 @@ const MessageBubble = ({ sender, text, score, corrected, corrections, feedback }
     };
 
     return (
-        <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-3`}>
-            <div className={`px-4 py-3 rounded-2xl max-w-sm ${
-                isUser ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
-            }`}>
+        <div className={`message-wrapper ${isUser ? "user-message" : "assistant-message"}`}>
+            <div 
+                className={`message-bubble ${isUser ? "user-bubble" : "assistant-bubble"}`}
+                data-streaming={isStreaming ? "true" : "false"}
+            >
                 {/* Main message text */}
-                {isUser && corrections && corrections.length > 0 ? (
-                    <div 
-                        dangerouslySetInnerHTML={{ 
-                            __html: renderCorrectionHighlights(text, corrections) 
-                        }}
-                    />
-                ) : (
-                    <div>{text}</div>
-                )}
+                <div className="message-content">
+                    {isUser && corrections && corrections.length > 0 ? (
+                        <div 
+                            dangerouslySetInnerHTML={{ 
+                                __html: renderCorrectionHighlights(text, corrections) 
+                            }}
+                        />
+                    ) : (
+                        <div>{text}</div>
+                    )}
+                </div>
 
                 {/* Score display for user messages */}
                 {isUser && score && (
-                    <div className="mt-2 text-xs bg-white bg-opacity-20 rounded px-2 py-1">
-                        <span className="font-semibold">Fluency Score: {score}/10</span>
-                        {score >= 8 && <span className="ml-1">🌟</span>}
-                        {score >= 6 && score < 8 && <span className="ml-1">👍</span>}
-                        {score < 6 && <span className="ml-1">💪</span>}
+                    <div className="message-score">
+                        <span className="score-text">Fluency Score: {score}/10</span>
+                        {score >= 8 && <span className="score-emoji">🌟</span>}
+                        {score >= 6 && score < 8 && <span className="score-emoji">👍</span>}
+                        {score < 6 && <span className="score-emoji">💪</span>}
                     </div>
                 )}
 
@@ -70,17 +73,21 @@ const MessageBubble = ({ sender, text, score, corrected, corrections, feedback }
 
                 {/* Feedback for bot messages */}
                 {isBot && feedback && (
-                    <div className="mt-2 text-xs bg-blue-50 text-blue-800 rounded px-2 py-1">
+                    <div className="message-feedback">
                         💡 {feedback}
                     </div>
                 )}
 
                 {/* Corrected version hint */}
                 {isUser && corrected && corrected !== text && (
-                    <div className="mt-2 text-xs bg-green-100 text-green-800 rounded px-2 py-1">
+                    <div className="message-suggestion">
                         <strong>Better:</strong> "{corrected}"
                     </div>
                 )}
+            </div>
+            
+            <div className="message-timestamp">
+                {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </div>
         </div>
     );

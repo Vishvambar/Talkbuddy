@@ -1,0 +1,78 @@
+/* Animations */
+@keyframes gradient-text {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+:root {
+    --primary-dark: #121212;
+    --secondary-dark: #1E1E1E;
+    --text-color: #FFFFFF;
+    --accent-color: #FFFFFF;
+    --highlight-color: #FFFFFF;
+    --button-color: #FFFFFF;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: var(--primary-dark);
+}
+.Title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: left;
+    padding: 15px 0;
+    padding-left: 20px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--secondary-dark);
+    background-image: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d8, #a47deb);
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradient-text 5s ease infinite;
+}
+.chat-messages {
+    scrollbar-width: thin; /* Firefox: thin bar */
+    scrollbar-color: grey #2a2a2a; /* thumb | track */
+    padding-bottom: 100px; /* Add space for floating message input */
+}
+
+/* Chrome, Edge, Safari */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00f0ff, #a259ff);
+    border-radius: 4px;
+    box-shadow: 0 0 8px #00f0ff; /* glow effect */
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00ffff, #ff00ff);
+    box-shadow: 0 0 12px #ff00ff; /* brighter glow on hover */
+}
+
+/* Hide scrollbar arrows/buttons */
+.chat-messages::-webkit-scrollbar-button {
+    display: none;
+}

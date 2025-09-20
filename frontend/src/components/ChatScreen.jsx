@@ -1,7 +1,8 @@
-import MessageBubble from './MessageBubble'
-import React, { useState } from 'react'
-import MessageInput from './MessageInput'
+import React, { useState, useEffect, useRef } from 'react';
+import MessageBubble from './MessageBubble';
+import MessageInput from './MessageInput';
 import { ENDPOINTS, apiCall, uploadFile } from '../config/api';
+import '../assets/modern-chat.css';
 
 const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
     const [messages, setMessages] = useState([{
@@ -13,6 +14,17 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
         feedback: null
     }]);
 
+    // Ref for auto-scrolling to bottom of chat
+    const messagesEndRef = useRef(null);
+    
+    // State for typing animation
+    const [isTyping, setIsTyping] = useState(false);
+    
+    // Auto-scroll to bottom when messages change
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+    
     const handleSend = async (userText) => {
         const userMessage = { 
             sender: 'user', 
@@ -26,50 +38,173 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
         setMessages(newMessages);
         
         try {
-            const data = await apiCall(ENDPOINTS.CHAT, {
-                method: 'POST',
-                body: JSON.stringify({ 
-                    message: userText,
-                    userId: userId
-                })
-            });
+            // Add typing indicator
+            setIsTyping(true);
             
-            if (data.error) {
-                setMessages([...newMessages, { 
-                    sender: 'bot', 
-                    text: 'Error: ' + (data.error || 'Unknown error'),
-                    score: null,
-                    corrected: null,
-                    corrections: [],
-                    feedback: null
-                }]);
-            } else {
-                // Update user message with analysis data
-                const updatedUserMessage = {
-                    ...userMessage,
-                    score: data.score,
-                    corrected: data.corrected,
-                    corrections: data.corrections || [],
-                    feedback: data.feedback
-                };
+            // Check if browser supports EventSource for streaming
+            if (window.EventSource) {
+                // Use streaming API
+                const streamUrl = `${ENDPOINTS.CHAT}?stream=true`;
+                const eventSource = new EventSource(streamUrl);
                 
+                // Create placeholder bot message that will be updated
                 const botMessage = {
                     sender: 'bot',
-                    text: data.reply,
+                    text: '',
                     score: null,
                     corrected: null,
                     corrections: [],
-                    feedback: data.feedback
+                    feedback: null,
+                    isStreaming: true
                 };
                 
-                setMessages([...messages, updatedUserMessage, botMessage]);
+                // Add empty bot message that will be filled with streaming content
+                setMessages(prev => [...prev, botMessage]);
                 
-                // Notify parent component about new session
-                if (onNewSession) {
-                    onNewSession();
+                // Set up event listeners for the stream
+                eventSource.addEventListener('fluency', (event) => {
+                    const fluencyData = JSON.parse(event.data);
+                    
+                    // Update user message with fluency data
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        // Find the last user message
+                        const userMsgIndex = updated.length - 2; // -2 because we added the bot message
+                        if (userMsgIndex >= 0 && updated[userMsgIndex].sender === 'user') {
+                            updated[userMsgIndex] = {
+                                ...updated[userMsgIndex],
+                                score: fluencyData.score,
+                                corrected: fluencyData.corrected,
+                                corrections: fluencyData.corrections || [],
+                                feedback: fluencyData.feedback
+                            };
+                        }
+                        return updated;
+                    });
+                });
+                
+                eventSource.addEventListener('chunk', (event) => {
+                    const data = JSON.parse(event.data);
+                    
+                    // Update bot message with new chunk
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        const lastIndex = updated.length - 1;
+                        if (lastIndex >= 0 && updated[lastIndex].sender === 'bot') {
+                            updated[lastIndex] = {
+                                ...updated[lastIndex],
+                                text: updated[lastIndex].text + data.chunk
+                            };
+                        }
+                        return updated;
+                    });
+                });
+                
+                eventSource.addEventListener('done', (event) => {
+                    // Stream is complete
+                    eventSource.close();
+                    setIsTyping(false);
+                    
+                    // Mark message as no longer streaming
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        const lastIndex = updated.length - 1;
+                        if (lastIndex >= 0 && updated[lastIndex].sender === 'bot') {
+                            updated[lastIndex] = {
+                                ...updated[lastIndex],
+                                isStreaming: false
+                            };
+                        }
+                        return updated;
+                    });
+                    
+                    // Notify parent component about new session
+                    if (onNewSession) {
+                        onNewSession();
+                    }
+                });
+                
+                eventSource.addEventListener('error', (event) => {
+                    console.error('SSE Error:', event);
+                    eventSource.close();
+                    setIsTyping(false);
+                    
+                    // Update the bot message with error
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        const lastIndex = updated.length - 1;
+                        if (lastIndex >= 0 && updated[lastIndex].sender === 'bot') {
+                            updated[lastIndex] = {
+                                ...updated[lastIndex],
+                                text: 'Error: Connection to server was lost. Please try again.',
+                                isStreaming: false
+                            };
+                        }
+                        return updated;
+                    });
+                });
+                
+                // Send the actual request to start streaming
+                await fetch(streamUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/event-stream'
+                    },
+                    body: JSON.stringify({ 
+                        message: userText,
+                        userId: userId
+                    }),
+                    credentials: 'include' // Include cookies for JWT
+                });
+            } else {
+                // Fallback to non-streaming API for browsers that don't support EventSource
+                const data = await apiCall(ENDPOINTS.CHAT, {
+                    method: 'POST',
+                    body: JSON.stringify({ 
+                        message: userText,
+                        userId: userId
+                    })
+                });
+                
+                if (data.error) {
+                    setMessages([...newMessages, { 
+                        sender: 'bot', 
+                        text: 'Error: ' + (data.error || 'Unknown error'),
+                        score: null,
+                        corrected: null,
+                        corrections: [],
+                        feedback: null
+                    }]);
+                } else {
+                    // Update user message with analysis data
+                    const updatedUserMessage = {
+                        ...userMessage,
+                        score: data.score,
+                        corrected: data.corrected,
+                        corrections: data.corrections || [],
+                        feedback: data.feedback
+                    };
+                    
+                    const botMessage = {
+                        sender: 'bot',
+                        text: data.reply,
+                        score: null,
+                        corrected: null,
+                        corrections: [],
+                        feedback: data.feedback
+                    };
+                    
+                    setMessages([...messages, updatedUserMessage, botMessage]);
+                    
+                    // Notify parent component about new session
+                    if (onNewSession) {
+                        onNewSession();
+                    }
                 }
             }
         } catch (err) {
+            setIsTyping(false);
             setMessages([...newMessages, { 
                 sender: 'bot', 
                 text: 'Network Error: ' + err.message + '. Please check your internet connection.',
@@ -187,15 +322,36 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
     };
 
     return (
-        <div className='flex flex-col h-full bg-white'>
+        <div className='chat-container'>
             {/* Chat Header */}
-            <div className='bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4'>
-                <h2 className='text-lg font-semibold'>💬 English Conversation Practice</h2>
-                <p className='text-sm text-blue-100'>Type or speak to practice your English with AI feedback</p>
+            <div className='chat-header'>
+                <h1 className='chat-title'>TalkBuddy Chat</h1>
+                <p className='chat-subtitle'>Practice your English conversation skills</p>
             </div>
             
             {/* Messages Area */}
-            <div className='flex-1 overflow-y-auto p-4 bg-gray-50'>
+            <div className='chat-messages'>
+                {/* Typing indicator */}
+                {isTyping && (
+                    <div className="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                )}
+                
+                {messages.length === 1 ? (
+                    <div className='chat-empty-state'>
+                        <div className='empty-state-icon'>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3>Start a conversation</h3>
+                        <p>Type a message or use voice recording to begin practicing English</p>
+                    </div>
+                ) : null}
+                
                 {messages.map((msg, index) => (
                     <MessageBubble 
                         key={index} 
@@ -205,13 +361,25 @@ const ChatScreen = ({ onNewSession, userId = 'demo-user' }) => {
                         corrected={msg.corrected}
                         corrections={msg.corrections}
                         feedback={msg.feedback}
+                        isStreaming={msg.isStreaming}
                     />
                 ))}
+                
+                {/* Typing indicator */}
+                {isTyping && (
+                    <div className="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                )}
+                {/* Invisible element for auto-scrolling */}
+                <div ref={messagesEndRef} />
             </div>
 
             {/* Message Input */}
-            <div className='bg-white border-t border-gray-200'>
-                <MessageInput onSend={handleSend} onVoiceMessage={handleVoiceMessage} />
+            <div className='chat-input-area'>
+                <MessageInput onSend={handleSend} onVoiceMessage={handleVoiceMessage}/>
             </div>
         </div>
     )
