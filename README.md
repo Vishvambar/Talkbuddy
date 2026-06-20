@@ -165,9 +165,9 @@ TalkBuddy follows a modern full-stack architecture with separate frontend and ba
 
 ## 📁 Project Structure
 
-```
+```text
 Talkbuddy/
-├── backend/
+├── backend/                  # Node.js Express API
 │   ├── data/                 # File storage fallback
 │   ├── models/               # MongoDB schemas
 │   ├── routes/               # API endpoints
@@ -177,7 +177,7 @@ Talkbuddy/
 │   ├── package.json          # Dependencies
 │   └── .env                  # Environment variables (create locally)
 │
-├── frontend/
+├── frontend/                 # React UI Application
 │   ├── public/               # Static assets
 │   ├── src/
 │   │   ├── assets/           # Images and resources
@@ -189,6 +189,13 @@ Talkbuddy/
 │   ├── package.json          # Dependencies
 │   ├── vite.config.js        # Vite configuration
 │   └── tailwind.config.js    # Tailwind CSS config
+│
+├── docs/                     # Detailed technical documentation
+│   ├── ARCHITECTURE.md       # System architecture design
+│   ├── API_DOCUMENTATION.md  # Detailed API specifications
+│   ├── AGENT_DOCUMENTATION.md# AI Agent behaviors
+│   ├── DEVELOPER_GUIDE.md    # Developer setup & guidelines
+│   └── USER_GUIDE.md         # End-user manual
 │
 └── README.md                 # This file
 ```
