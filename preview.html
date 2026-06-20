@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* General Body and Container Styling */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.profile-container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Cover Image */
+.cover-image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.cover-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Profile Header (Avatar and User Info) */
+.profile-header {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 40px 20px;
+    margin-top: -80px;
+    position: relative;
+    z-index: 10;
+}
+
+.avatar-container {
+    position: relative;
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.edit-avatar-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.edit-avatar-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.user-info {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 25px;
+    padding-bottom: 10px;
+}
+
+.user-info h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary {
+    background-color: #007aff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #005ecb;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #e4e6eb;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #d8dadf;
+    transform: translateY(-1px);
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #e4e6eb;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-icon:hover {
+    background-color: #d8dadf;
+    transform: translateY(-1px);
+}
+
+/* Main Content Area */
+.profile-content {
+    display: flex;
+    padding: 20px 40px 40px;
+    gap: 30px;
+}
+
+.profile-details {
+    flex: 2;
+}
+
+.profile-sidebar {
+    flex: 1;
+}
+
+/* Sections */
+.section {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+}
+
+.section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e4e6eb;
+    padding-bottom: 10px;
+    color: #1a1a1a;
+}
+
+/* Bio Section */
+.bio-section p {
+    line-height: 1.6;
+    margin: 0;
+    color: #555;
+}
+
+.read-more-btn {
+    color: #007aff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Stats Section */
+.stats-section {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.stat {
+    flex: 1;
+}
+
+.stat h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+.stat p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Interests Section */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background: #e4e6eb;
+    color: #555;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Settings and Account Controls */
+.settings-section ul, .account-controls ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.setting-item:hover {
+    color: #007aff;
+}
+
+.setting-item i {
+    font-size: 18px;
+    width: 30px;
+    text-align: center;
+    margin-right: 10px;
+    color: #777;
+}
+
+.setting-item:hover i {
+    color: #007aff;
+}
+
+.delete-account {
+    color: #e03131;
+}
+
+.delete-account i {
+    color: #e03131;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: -60px;
+    }
+
+    .user-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .user-info h1 {
+        font-size: 2rem;
+    }
+
+    .action-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .profile-content {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .profile-sidebar {
+        order: -1; /* Puts the sidebar at the top on mobile */
+    }
+
+    .stats-section {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat h3 {
+        font-size: 1.25rem;
+    }
+}
+</style>
+</head>
+<body>
+
+    <div class="profile-container">
+
+        <div class="cover-image-container">
+            <img id="cover-image" src="https://via.placeholder.com/1200x300?text=Cover+Image" alt="Cover Image">
+        </div>
+
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img id="avatar" src="https://via.placeholder.com/150?text=User+Avatar" alt="User Avatar">
+                <button class="edit-avatar-btn"><i class="fas fa-pencil-alt"></i></button>
+            </div>
+
+            <div class="user-info">
+                <h1 id="user-name">John Doe</h1>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="follow-btn">Follow</button>
+                    <button class="btn btn-secondary" id="message-btn">Message</button>
+                    <button class="btn-icon" id="edit-profile-btn"><i class="fas fa-cog"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-details">
+                <div class="section bio-section">
+                    <h2>About Me</h2>
+                    <p id="user-bio">Frontend developer with a passion for creating beautiful and user-friendly interfaces. I love building responsive web applications and exploring new technologies. <span class="read-more-btn">Read more</span></p>
+                </div>
+
+                <div class="section stats-section">
+                    <div class="stat">
+                        <h3><span id="posts-count">150</span></h3>
+                        <p>Posts</p>
+                    </div>
+                    <div class="stat">
+                        <h3><span id="followers-count">2.5k</span></h3>
+                        <p>Followers</p>
+                    </div>
+                    <div class="stat">
+                        <h3><span id="following-count">500</span></h3>
+                        <p>Following</p>
+                    </div>
+                </div>
+
+                <div class="section interests-section">
+                    <h2>Interests & Skills</h2>
+                    <div class="tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">React.js</span>
+                        <span class="tag">UI/UX Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-sidebar">
+                <div class="section settings-section">
+                    <h2>Settings</h2>
+                    <ul>
+                        <li><a href="#" class="setting-item"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                        <li><a href="#" class="setting-item"><i class="fas fa-lock"></i> Change Password</a></li>
+                        <li><a href="#" class="setting-item"><i class="fas fa-shield-alt"></i> Privacy Settings</a></li>
+                        <li><a href="#" class="setting-item"><i class="fas fa-envelope"></i> Email & Notifications</a></li>
+                    </ul>
+                </div>
+
+                <div class="section account-controls">
+                    <h2>Account</h2>
+                    <ul>
+                        <li><a href="#" class="setting-item"><i class="fas fa-credit-card"></i> Manage Subscription</a></li>
+                        <li><a href="#" class="setting-item"><i class="fas fa-download"></i> Export Data</a></li>
+                        <li><a href="#" class="setting-item delete-account"><i class="fas fa-trash-alt"></i> Delete Account</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+    const followBtn = document.getElementById('follow-btn');
+    const userName = document.getElementById('user-name');
+    const userBio = document.getElementById('user-bio');
+
+    // Simulate user data fetching from an API
+    const userData = {
+        name: 'Jane Smith',
+        bio: 'A passionate product designer and UX researcher. I enjoy creating intuitive and delightful user experiences. Let\'s connect and build something amazing together!',
+        isFollowing: false,
+        posts: 210,
+        followers: '3.1k',
+        following: 650,
+        interests: ['Product Design', 'UX Research', 'Figma', 'Sketch', 'Prototyping'],
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
+        coverUrl: 'https://images.unsplash.com/photo-1549880181-56a446954203?q=80&w=2070&auto=format&fit=crop'
+    };
+
+    // Update the UI with fetched data
+    function updateProfileUI() {
+        // Avatar and Cover
+        document.getElementById('avatar').src = userData.avatarUrl;
+        document.getElementById('cover-image').src = userData.coverUrl;
+
+        // User Info
+        userName.textContent = userData.name;
+        userBio.textContent = userData.bio;
+
+        // Stats
+        document.getElementById('posts-count').textContent = userData.posts;
+        document.getElementById('followers-count').textContent = userData.followers;
+        document.getElementById('following-count').textContent = userData.following;
+
+        // Interests
+        const interestsContainer = document.querySelector('.interests-section .tags');
+        interestsContainer.innerHTML = ''; // Clear existing tags
+        userData.interests.forEach(interest => {
+            const tagSpan = document.createElement('span');
+            tagSpan.className = 'tag';
+            tagSpan.textContent = interest;
+            interestsContainer.appendChild(tagSpan);
+        });
+
+        // Action Buttons
+        updateFollowButton();
+    }
+
+    function updateFollowButton() {
+        if (userData.isFollowing) {
+            followBtn.textContent = 'Following';
+            followBtn.classList.remove('btn-primary');
+            followBtn.classList.add('btn-secondary');
+        } else {
+            followBtn.textContent = 'Follow';
+            followBtn.classList.remove('btn-secondary');
+            followBtn.classList.add('btn-primary');
+        }
+    }
+
+    // Event Listeners
+    followBtn.addEventListener('click', () => {
+        userData.isFollowing = !userData.isFollowing;
+        updateFollowButton();
+        // Here you would typically send an API request to follow/unfollow the user
+        console.log(`User is now ${userData.isFollowing ? 'following' : 'unfollowing'}`);
+    });
+
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    editProfileBtn.addEventListener('click', () => {
+        // In a real application, this would open a modal or navigate to a settings page
+        alert('Edit Profile settings will open here!');
+    });
+
+    // Initial load
+    updateProfileUI();
+});
+    </script>
+</body>
+</html>
